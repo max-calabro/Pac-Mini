@@ -6,52 +6,58 @@ const pacman = document.createElement('div')
 pacman.className = 'pac-man'
 document.querySelector('.game-board').append(pacman)
 pacman.style.backgroundImage = 'url("Arcade - Pac-Man - General Sprites.png")'
+document.querySelector('.game-board').backgroundImage =
+  'url("Arcade - Pac-Man - General Sprites.png")'
 
-//Where the player will be on the gameboard
+//Where the player will be on the gameboard in pixels
 let playerCoordinateY = 0
 let playerCoordinateX = 0
 
-//The coordinates of the sprite sheet to target a starting point for a specific frames
+//The coordinates of the sprite sheet to target a starting point for a specific frames. 208x000 is base pose Pac-man
 let spriteSheetX = '208px'
 let spriteSheetY = '000px'
 
-//How many pixel are needed for move to display a specific frame
+//How many pixel are needed for move to display a specific frame. Pac-man is 16x16
 let pacmanHeight = '16px'
 let pacmanWidth = '16px'
 pacman.style.height = pacmanHeight
 pacman.style.width = pacmanWidth
 
-//Dimensions of the sprite sheet
+//Dimensions of the sprite sheet in pixels
 let spriteSheetHeight = 248 //rows
 let spriteSheetWidth = 680 //Columns
 
-//What sprite pose Pacman is currently in
+//What sprite pose Pac-man is currently in. 0/2 are base pose, 1 is wide mouth, and 3 is closed mouth.
 let whatPacmanFrame = 0
 
-//static starting pac-man
+//Static starting Pac-man
 pacman.style.backgroundPositionX = spriteSheetX
 pacman.style.backgroundPositionY = spriteSheetY
 
-//Pac-mans movement up(-top), down(+top), right(+left), left(-left)
+//Pac-man's movement up(-top), down(+top), right(+left), left(-left)
 let moveUp = '000px'
 let moveDown = '000px'
 let moveRight = '000px'
 let moveLeft = '000px'
+//More movement variables. Timer, turns off setTimeout inside the movement, direction, tracks what direction Pac-man is moving.
 let timer = 0
 let direction = ''
+let pixel = 0
+let moveWhere = ''
+let moveOpposite = ''
 
 /*
  *
  * Functions
  */
 const pacmanEats = () => {
-  //When whatPacmanFrame is 0 or 2, normal pacman should display
-  //When whatPacmanFrame is 1, wide pacman should display
-  //When whatPacmanFrame is 3, closed pacman should display
+  //When whatPacmanFrame is 0 or 2, base pose should display
+  //When whatPacmanFrame is 1, wide pose should display
+  //When whatPacmanFrame is 3, closed pose should display
   if (whatPacmanFrame === 0 || whatPacmanFrame === 3) {
     //console.log(`started pacman eats 0 or 2`)
-    //put only first 3 characters of spriteSheetX & Y into themself
-    //turn those variables into intagers
+    //Put only first 3 characters of spriteSheetX & Y into themself
+    //Turn those variables into intagers
     spriteSheetX = parseInt(spriteSheetX.slice(0, 3))
     spriteSheetY = parseInt(spriteSheetY.slice(0, 3))
     //do math on those variables
@@ -98,31 +104,127 @@ const pacmanEats = () => {
 //pacmanEats()
 
 const pacmanChangeDirection = (keyPressed) => {
+  /* This is tied to pacmanMovement. Will hopefully be dry eventually
+  if (
+    keyPressed.key === 'w' ||
+    keyPressed.key === 'ArrowUp' ||
+    keyPressed.key === 's' ||
+    keyPressed.key === 'ArrowDown' ||
+    keyPressed.key === 'd' ||
+    keyPressed.key === 'ArrowRight' ||
+    keyPressed.key === 'a' ||
+    keyPressed.key === 'Arrowleft'
+  ) {
+    direction = keyPressed.key
+    clearTimeout(timer)
+    pacmanMovement(direction)
+  }
+  */
   if (keyPressed.key === 's' || keyPressed.key === 'ArrowDown') {
     if (direction != 'down') {
       clearTimeout(timer)
       movePacmanDown()
+      //pacmanMovement(keyPressed)
     }
   } else if (keyPressed.key === 'w' || keyPressed.key === 'ArrowUp') {
     if (direction != 'up') {
       clearTimeout(timer)
       movePacmanUp()
+      //pacmanMovement(keyPressed)
     }
   } else if (keyPressed.key === 'd' || keyPressed.key === 'ArrowRight') {
     if (direction != 'right') {
       clearTimeout(timer)
       movePacmanRight()
+      //pacmanMovement(keyPressed)
     }
   } else if (keyPressed.key === 'a' || keyPressed.key === 'ArrowLeft') {
     if (direction != 'left') {
       clearTimeout(timer)
       movePacmanLeft()
+      //pacmanMovement(keyPressed)
     }
   }
 }
 
+/*I was getting some strange errors. Eveything was working except w and arrow up 
+const pacmanMovement = (direction) => {
+  //moveWhere ex. moveDown, moveOpposite ex. moveUp
+  //What direction is Pac-man moving
+  //Rotate the sprite and set up moveWhere and moveOpposite
+  if (direction === 'w' || direction === 'ArrowUp') {
+    pacman.style.transform = 'rotate(270deg)'
+    moveWhere = moveUp
+    moveOpposite = moveDown
+  } else if (direction === 's' || direction === 'ArrowDown') {
+    pacman.style.transform = 'rotate(90deg)'
+    moveWhere = moveDown
+    moveOpposite = moveUp
+  } else if (direction === 'd' || direction === 'ArrowRight') {
+    pacman.style.transform = 'rotate(0deg)'
+    moveWhere = moveRight
+    moveOpposite = moveLeft
+  } else if (direction === 'a' || direction === 'ArrowLeft') {
+    pacman.style.transform = 'rotate(180deg)'
+    moveWhere = moveLeft
+    moveOpposite = moveRight
+  }
+
+  //Copy only first 3 characters and turn those variables into intagers
+  moveWhere = parseInt(moveWhere.slice(0, 3))
+  moveOpposite = parseInt(moveOpposite.slice(0, 3))
+
+  //Amount of pixels to change by
+  if (
+    direction === 'w' ||
+    direction === 'ArrowUp' ||
+    direction === 'a' ||
+    direction === 'ArrowLeft'
+  ) {
+    pixel = -1
+    console.log('this works')
+  } else if (
+    direction === 'd' ||
+    direction === 'ArrowRight' ||
+    direction === 's' ||
+    direction === 'ArrowDown'
+  ) {
+    pixel = 1
+  }
+
+  //Apply change in pixels
+  moveWhere += pixel
+  moveOpposite += pixel
+
+  //Change back to string with 'px' attached
+  moveWhere = moveWhere.toString() + 'px'
+  moveOpposite = moveOpposite.toString() + 'px'
+
+  //Where to apply the change
+  if (
+    direction === 'w' ||
+    direction === 'ArrowUp' ||
+    direction === 's' ||
+    direction === 'ArrowDown'
+  ) {
+    pacman.style.top = moveWhere
+  } else if (
+    direction === 'd' ||
+    direction === 'ArrowRight' ||
+    direction === 'a' ||
+    direction === 'ArrowLeft'
+  ) {
+    pacman.style.left = moveWhere
+  }
+
+  //Make him move!
+  timer = setTimeout(pacmanMovement, 10)
+}
+*/
+
 const movePacmanDown = () => {
   direction = 'down'
+  pacman.style.transform = 'rotate(90deg)'
   //console.log(moveDown)
   //Put only first 3 characters of moveDown into itself
   //Turn those variables into intagers
@@ -144,6 +246,7 @@ const movePacmanDown = () => {
 
 const movePacmanUp = () => {
   direction = 'up'
+  pacman.style.transform = 'rotate(270deg)'
   //console.log(moveDown)
   //Put only first 3 characters of moveDown into itself
   //Turn those variables into intagers
@@ -165,6 +268,7 @@ const movePacmanUp = () => {
 
 const movePacmanLeft = () => {
   direction = 'left'
+  pacman.style.transform = 'rotate(180deg)'
   //console.log(moveDown)
   //Put only first 3 characters of moveDown into itself
   //Turn those variables into intagers
@@ -186,6 +290,7 @@ const movePacmanLeft = () => {
 
 const movePacmanRight = () => {
   direction = 'right'
+  pacman.style.transform = 'rotate(0deg)'
   //console.log(moveDown)
   //Put only first 3 characters of moveDown into itself
   //Turn those variables into intagers
@@ -213,4 +318,5 @@ const movePacmanRight = () => {
 //Where he going?
 document.addEventListener('keydown', (keyPressed) => {
   pacmanChangeDirection(keyPressed)
+  //pacmanChangeDirection(keyPressed)
 })

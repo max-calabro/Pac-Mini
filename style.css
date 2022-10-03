@@ -3,9 +3,10 @@ h1 {
 }
 
 .game-board {
+  height: 248px;
+  width: 226px;
   border: 1px solid black;
-  height: 300px;
-  width: 300px;
+
 }
 
 .pac-man {
