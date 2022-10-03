@@ -272,6 +272,13 @@ const pacmanMovement = (direction) => {
 */
 
 const movePacmanDown = () => {
+  if (
+    pacman.style.top === '80px' &&
+    parseInt(pacman.style.left.slice(0, 3)) > 89 &&
+    parseInt(pacman.style.left.slice(0, 3)) < 109
+  ) {
+    removeDot()
+  }
   direction = 'down'
   pacman.style.transform = 'rotate(90deg)'
   //console.log(moveDown)
@@ -292,7 +299,7 @@ const movePacmanDown = () => {
   pacman.style.top = moveDown
 
   //Make him move!
-  timer = setTimeout(movePacmanDown, 50)
+  timer = setTimeout(movePacmanDown, 30)
 }
 
 const movePacmanUp = () => {
@@ -323,10 +330,17 @@ const movePacmanUp = () => {
   pacman.style.top = moveUp
 
   //Make him move!
-  timer = setTimeout(movePacmanUp, 50)
+  timer = setTimeout(movePacmanUp, 30)
 }
 
 const movePacmanLeft = () => {
+  if (
+    pacman.style.left === '109px' &&
+    parseInt(pacman.style.top.slice(0, 3)) > 80 &&
+    parseInt(pacman.style.top.slice(0, 3)) < 100
+  ) {
+    removeDot()
+  }
   direction = 'left'
   pacman.style.transform = 'rotate(180deg)'
   //console.log(moveDown)
@@ -347,10 +361,17 @@ const movePacmanLeft = () => {
   pacman.style.left = moveLeft
 
   //Make him move!
-  timer = setTimeout(movePacmanLeft, 50)
+  timer = setTimeout(movePacmanLeft, 30)
 }
 
 const movePacmanRight = () => {
+  if (
+    pacman.style.left === '89px' &&
+    parseInt(pacman.style.top.slice(0, 3)) > 80 &&
+    parseInt(pacman.style.top.slice(0, 3)) < 100
+  ) {
+    removeDot()
+  }
   direction = 'right'
   pacman.style.transform = 'rotate(0deg)'
   //console.log(moveDown)
@@ -371,7 +392,7 @@ const movePacmanRight = () => {
   pacman.style.left = moveRight
 
   //Make him move!
-  timer = setTimeout(movePacmanRight, 50)
+  timer = setTimeout(movePacmanRight, 30)
 }
 
 /*
