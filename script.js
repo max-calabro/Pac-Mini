@@ -14,7 +14,7 @@ pacman.style.backgroundImage = 'url("Arcade - Pac-Man - General Sprites.png")'
 
 //Gameboard sprite position
 let board = document.querySelector('.game-board')
-board.style.backgroundPositionX = '-226px'
+board.style.backgroundPositionX = '-456px'
 
 //Dots
 const dot = document.createElement('div')
@@ -35,7 +35,7 @@ let playerCoordinateY = 0
 let playerCoordinateX = 0
 
 //The coordinates of the sprite sheet to target a starting point for a specific frames. 208x000 is base pose Pac-man
-let spriteSheetX = '208px'
+let spriteSheetX = '417px'
 let spriteSheetY = '000px'
 
 //What sprite pose Pac-man is currently in. 0/2 are base pose, 1 is wide mouth, and 3 is closed mouth.
