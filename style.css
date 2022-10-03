@@ -3,6 +3,7 @@ h1 {
 }
 
 .game-board {
+  /* background-image: 'url("Arcade - Pac-Man - General Sprites.png")'; */
   height: 248px;
   width: 226px;
   border: 1px solid black;
@@ -10,5 +11,9 @@ h1 {
 }
 
 .pac-man {
+  position: relative;
+}
+
+.dots {
   position: relative;
 }

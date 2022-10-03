@@ -9,6 +9,17 @@ pacman.style.backgroundImage = 'url("Arcade - Pac-Man - General Sprites.png")'
 document.querySelector('.game-board').backgroundImage =
   'url("Arcade - Pac-Man - General Sprites.png")'
 
+//Dots
+const dot = document.createElement('div')
+dot.className = 'dots'
+document.querySelector('.game-board').append(dot)
+dot.style.backgroundImage = 'url("Arcade - Pac-Man - General Sprites.png")'
+dot.style.height = '4px'
+dot.style.width = '4px'
+//Dot starting position
+dot.style.top = '80px'
+dot.style.left = '105px'
+
 //Where the player will be on the gameboard in pixels
 let playerCoordinateY = 0
 let playerCoordinateX = 0
@@ -23,6 +34,10 @@ let pacmanWidth = '16px'
 pacman.style.height = pacmanHeight
 pacman.style.width = pacmanWidth
 
+//Show correct part of sprite sheet as background
+dot.style.backgroundPositionX = '-11px'
+dot.style.backgroundPositionY = '62px'
+
 //Dimensions of the sprite sheet in pixels
 let spriteSheetHeight = 248 //rows
 let spriteSheetWidth = 680 //Columns
@@ -35,16 +50,20 @@ pacman.style.backgroundPositionX = spriteSheetX
 pacman.style.backgroundPositionY = spriteSheetY
 
 //Pac-man's movement up(-top), down(+top), right(+left), left(-left)
-let moveUp = '000px'
-let moveDown = '000px'
-let moveRight = '000px'
-let moveLeft = '000px'
+let moveUp = '180px'
+let moveDown = '180px'
+let moveRight = '105px'
+let moveLeft = '105px'
 //More movement variables. Timer, turns off setTimeout inside the movement, direction, tracks what direction Pac-man is moving.
 let timer = 0
 let direction = ''
 let pixel = 0
 let moveWhere = ''
 let moveOpposite = ''
+
+//Start Pac-man in the center
+pacman.style.top = '180px'
+pacman.style.left = '105px'
 
 /*
  *
@@ -120,29 +139,40 @@ const pacmanChangeDirection = (keyPressed) => {
     pacmanMovement(direction)
   }
   */
+
   if (keyPressed.key === 's' || keyPressed.key === 'ArrowDown') {
     if (direction != 'down') {
-      clearTimeout(timer)
-      movePacmanDown()
-      //pacmanMovement(keyPressed)
+      if (parseInt(moveDown.slice(0, 3)) + 1 != 233) {
+        clearTimeout(timer)
+        movePacmanDown()
+        //pacmanMovement(keyPressed)
+      }
     }
   } else if (keyPressed.key === 'w' || keyPressed.key === 'ArrowUp') {
     if (direction != 'up') {
-      clearTimeout(timer)
-      movePacmanUp()
-      //pacmanMovement(keyPressed)
+      if (parseInt(moveUp.slice(0, 3)) - 1 != -1) {
+        clearTimeout(timer)
+        movePacmanUp()
+        //pacmanMovement(keyPressed)
+      }
     }
-  } else if (keyPressed.key === 'd' || keyPressed.key === 'ArrowRight') {
+  }
+
+  if (keyPressed.key === 'd' || keyPressed.key === 'ArrowRight') {
     if (direction != 'right') {
-      clearTimeout(timer)
-      movePacmanRight()
-      //pacmanMovement(keyPressed)
+      if (parseInt(moveRight.slice(0, 3)) + 1 != 211) {
+        clearTimeout(timer)
+        movePacmanRight()
+        //pacmanMovement(keyPressed)
+      }
     }
   } else if (keyPressed.key === 'a' || keyPressed.key === 'ArrowLeft') {
     if (direction != 'left') {
-      clearTimeout(timer)
-      movePacmanLeft()
-      //pacmanMovement(keyPressed)
+      if (parseInt(moveLeft.slice(0, 3)) - 1 != -1) {
+        clearTimeout(timer)
+        movePacmanLeft()
+        //pacmanMovement(keyPressed)
+      }
     }
   }
 }
@@ -231,9 +261,11 @@ const movePacmanDown = () => {
   moveDown = parseInt(moveDown.slice(0, 3))
   moveUp = parseInt(moveUp.slice(0, 3))
   //console.log(moveDown)
-  //Move down one soon to be pixel
-  moveDown += 1
-  moveUp += 1
+  if (moveDown + 1 != 233) {
+    //Move down one soon to be pixel
+    moveDown += 1
+    moveUp += 1
+  }
   //Change back to string with 'px' attached
   moveDown = moveDown.toString() + 'px'
   moveUp = moveUp.toString() + 'px'
@@ -254,8 +286,10 @@ const movePacmanUp = () => {
   moveDown = parseInt(moveDown.slice(0, 3))
   //console.log(moveDown)
   //Move down one soon to be pixel
-  moveUp -= 1
-  moveDown -= 1
+  if (moveUp - 1 != -1) {
+    moveUp -= 1
+    moveDown -= 1
+  }
   //Change back to string with 'px' attached
   moveUp = moveUp.toString() + 'px'
   moveDown = moveDown.toString() + 'px'
@@ -276,8 +310,10 @@ const movePacmanLeft = () => {
   moveRight = parseInt(moveRight.slice(0, 3))
   //console.log(moveDown)
   //Move down one soon to be pixel
-  moveLeft -= 1
-  moveRight -= 1
+  if (moveLeft - 1 != -1) {
+    moveLeft -= 1
+    moveRight -= 1
+  }
   //Change back to string with 'px' attached
   moveLeft = moveLeft.toString() + 'px'
   moveRight = moveRight.toString() + 'px'
@@ -298,8 +334,10 @@ const movePacmanRight = () => {
   moveLeft = parseInt(moveLeft.slice(0, 3))
   //console.log(moveDown)
   //Move down one soon to be pixel
-  moveRight += 1
-  moveLeft += 1
+  if (moveRight + 1 != 211) {
+    moveRight += 1
+    moveLeft += 1
+  }
   //Change back to string with 'px' attached
   moveRight = moveRight.toString() + 'px'
   moveLeft = moveLeft.toString() + 'px'
