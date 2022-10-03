@@ -3,8 +3,8 @@
  * Glabal constants and variables
  */
 //Dimensions of the sprite sheet in pixels
-let spriteSheetHeight = 248 //rows
-let spriteSheetWidth = 680 //Columns
+let spriteSheetHeight = 496 //rows
+let spriteSheetWidth = 1360 //Columns
 
 //Pac-man gets slapped on the board
 const pacman = document.createElement('div')
@@ -35,7 +35,7 @@ let playerCoordinateY = 0
 let playerCoordinateX = 0
 
 //The coordinates of the sprite sheet to target a starting point for a specific frames. 208x000 is base pose Pac-man
-let spriteSheetX = '417px'
+let spriteSheetX = '416px'
 let spriteSheetY = '000px'
 
 //What sprite pose Pac-man is currently in. 0/2 are base pose, 1 is wide mouth, and 3 is closed mouth.
@@ -46,10 +46,10 @@ pacman.style.backgroundPositionX = spriteSheetX
 pacman.style.backgroundPositionY = spriteSheetY
 
 //Pac-man's movement up(-top), down(+top), right(+left), left(-left)
-let moveUp = '180px'
-let moveDown = '180px'
-let moveRight = '105px'
-let moveLeft = '105px'
+let moveUp = '360px'
+let moveDown = '360px'
+let moveRight = '210px'
+let moveLeft = '210px'
 //More movement variables. Timer, turns off setTimeout inside the movement, direction, tracks what direction Pac-man is moving.
 let timer = 0
 let direction = ''
@@ -58,8 +58,8 @@ let moveWhere = ''
 let moveOpposite = ''
 
 //Start Pac-man in the center
-pacman.style.top = '180px'
-pacman.style.left = '105px'
+pacman.style.top = '360px'
+pacman.style.left = '210px'
 
 //Array of dots
 let dotArray = []
@@ -104,7 +104,7 @@ const pacmanEats = () => {
     spriteSheetX = parseInt(spriteSheetX.slice(0, 3))
     spriteSheetY = parseInt(spriteSheetY.slice(0, 3))
     //do math on those variables
-    spriteSheetX += 16
+    spriteSheetX += 32
     spriteSheetY += 0
     //change back into string
     //put back into respective spriteSheet with 'px' attached
@@ -125,7 +125,7 @@ const pacmanEats = () => {
     spriteSheetX = parseInt(spriteSheetX.slice(0, 3))
     spriteSheetY = parseInt(spriteSheetY.slice(0, 3))
     //do math on those variables
-    spriteSheetX -= 16
+    spriteSheetX -= 32
     spriteSheetY -= 0
     //change back into string
     //put back into respective spriteSheet with 'px' attached
@@ -182,7 +182,7 @@ const pacmanChangeDirection = (keyPressed) => {
 
   if (keyPressed.key === 's' || keyPressed.key === 'ArrowDown') {
     if (direction != 'down') {
-      if (parseInt(moveDown.slice(0, 3)) + 1 != 233) {
+      if (parseInt(moveDown.slice(0, 3)) + 1 != 466) {
         clearTimeout(timer)
         movePacmanDown()
         //pacmanMovement(keyPressed)
@@ -200,7 +200,7 @@ const pacmanChangeDirection = (keyPressed) => {
 
   if (keyPressed.key === 'd' || keyPressed.key === 'ArrowRight') {
     if (direction != 'right') {
-      if (parseInt(moveRight.slice(0, 3)) + 1 != 211) {
+      if (parseInt(moveRight.slice(0, 3)) + 1 != 421) {
         clearTimeout(timer)
         movePacmanRight()
         //pacmanMovement(keyPressed)
@@ -294,7 +294,7 @@ const pacmanMovement = (direction) => {
 
 const movePacmanDown = () => {
   if (
-    pacman.style.top === '80px' &&
+    pacman.style.top === 0 && //make this check against every dot position in the array
     parseInt(pacman.style.left.slice(0, 3)) > 89 &&
     parseInt(pacman.style.left.slice(0, 3)) < 109
   ) {
@@ -308,7 +308,7 @@ const movePacmanDown = () => {
   moveDown = parseInt(moveDown.slice(0, 3))
   moveUp = parseInt(moveUp.slice(0, 3))
   //console.log(moveDown)
-  if (moveDown + 1 != 233) {
+  if (moveDown + 1 != 466) {
     //Move down one soon to be pixel
     moveDown += 1
     moveUp += 1
@@ -320,12 +320,12 @@ const movePacmanDown = () => {
   pacman.style.top = moveDown
 
   //Make him move!
-  timer = setTimeout(movePacmanDown, 30)
+  timer = setTimeout(movePacmanDown, 20)
 }
 
 const movePacmanUp = () => {
   if (
-    pacman.style.top === '100px' &&
+    pacman.style.top === 0 && //make this check against every dot position in the array
     parseInt(pacman.style.left.slice(0, 3)) > 89 &&
     parseInt(pacman.style.left.slice(0, 3)) < 109
   ) {
@@ -351,12 +351,12 @@ const movePacmanUp = () => {
   pacman.style.top = moveUp
 
   //Make him move!
-  timer = setTimeout(movePacmanUp, 30)
+  timer = setTimeout(movePacmanUp, 20)
 }
 
 const movePacmanLeft = () => {
   if (
-    pacman.style.left === '109px' &&
+    pacman.style.left === 0 && //make this check against every dot position in the array
     parseInt(pacman.style.top.slice(0, 3)) > 80 &&
     parseInt(pacman.style.top.slice(0, 3)) < 100
   ) {
@@ -382,12 +382,12 @@ const movePacmanLeft = () => {
   pacman.style.left = moveLeft
 
   //Make him move!
-  timer = setTimeout(movePacmanLeft, 30)
+  timer = setTimeout(movePacmanLeft, 20)
 }
 
 const movePacmanRight = () => {
   if (
-    pacman.style.left === '89px' &&
+    pacman.style.left === 0 && //make this check against every dot position in the array
     parseInt(pacman.style.top.slice(0, 3)) > 80 &&
     parseInt(pacman.style.top.slice(0, 3)) < 100
   ) {
@@ -402,7 +402,7 @@ const movePacmanRight = () => {
   moveLeft = parseInt(moveLeft.slice(0, 3))
   //console.log(moveDown)
   //Move down one soon to be pixel
-  if (moveRight + 1 != 211) {
+  if (moveRight + 1 != 421) {
     moveRight += 1
     moveLeft += 1
   }
@@ -413,7 +413,7 @@ const movePacmanRight = () => {
   pacman.style.left = moveRight
 
   //Make him move!
-  timer = setTimeout(movePacmanRight, 30)
+  timer = setTimeout(movePacmanRight, 20)
 }
 
 /*

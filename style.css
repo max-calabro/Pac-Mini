@@ -3,7 +3,7 @@ h1 {
 }
 
 .game-board {
-  /*background-image: url("Arcade - Pac-Man - General Sprites.png");*/
+  background-image: url("Arcade - Pac-Man - General Sprites.png");
   height: 496px;
   width: 450px;
 }
