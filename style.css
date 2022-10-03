@@ -3,9 +3,10 @@ h1 {
 }
 
 .game-board {
-  background-image: url("Arcade - Pac-Man - General Sprites.png");
+  /*background-image: url("Arcade - Pac-Man - General Sprites.png");*/
   height: 496px;
   width: 450px;
+  border: 1px solid black;
 }
 
 .pac-man {
@@ -19,8 +20,8 @@ h1 {
   height: 4px;
   width: 4px;
   background-image: url("Arcade - Pac-Man - General Sprites.png");
-  background-position-x: -11px;
-  background-position-y: 62px;
+  background-position-x: -22px;
+  background-position-y: 58px;
 }
 
 .scoreboard {

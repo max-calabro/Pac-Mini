@@ -23,8 +23,8 @@ dot.className = 'dots'
 document.querySelector('.game-board').append(dot)
 */
 //Dot starting position
-dot.style.top = '80px'
-dot.style.left = '105px'
+dot.style.top = '160px'
+dot.style.left = '210px'
 
 //Scoreboard
 let score = 0
@@ -81,7 +81,7 @@ const displayDots = () => {
 }
 //create dots and fill array
 const createDots = () => {
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 1; i++) {
     let arrDot = {}
     arrDot.id = 'dot' + i
     arrDot.topPosition = parseInt(dot.style.top.slice(0, 3)) + i * 10
@@ -146,12 +146,33 @@ const pacmanEats = () => {
 
 //pacmanEats()
 
-//Remove a dot when Pac-man touches it
-const removeDot = () => {
+//Check for dots in the direction Pac-man is facing
+const checkForDots = (facing) => {
+  if (facing === 'up') {
+    for (let i = 0; i > dotArray.length; i++) {
+      if (
+        parseInt(pacman.style.top.slice(0, 3)) - 34 ===
+          dotArray[i].topPosition &&
+        parseInt(pacman.style.left.slice(0, 3)) > 89 &&
+        parseInt(pacman.style.left.slice(0, 3)) < 109
+      ) {
+        removeDot(dotArray[i].id)
+      }
+    }
+  }
+}
+/*if (
+  pacman.style.top === '80px' &&
+  parseInt(pacman.style.left.slice(0, 3)) > 89 &&
+  parseInt(pacman.style.left.slice(0, 3)) < 109
+)*/
+
+//Remove a dot when Pac-man touches it and add to the score
+const removeDot = (id) => {
   console.log(
     `Pac-man's top is ${pacman.style.top} and left is ${pacman.style.left}`
   )
-  dot.remove()
+  document.querySelector(`#${id}`).remove()
   score += 100
   document.querySelector('.scoreboard').innerHTML = score
 }
@@ -293,14 +314,8 @@ const pacmanMovement = (direction) => {
 */
 
 const movePacmanDown = () => {
-  if (
-    pacman.style.top === 0 && //make this check against every dot position in the array
-    parseInt(pacman.style.left.slice(0, 3)) > 89 &&
-    parseInt(pacman.style.left.slice(0, 3)) < 109
-  ) {
-    removeDot()
-  }
   direction = 'down'
+  //checkForDots(direction)
   pacman.style.transform = 'rotate(90deg)'
   //console.log(moveDown)
   //Put only first 3 characters of moveDown into itself
@@ -324,14 +339,8 @@ const movePacmanDown = () => {
 }
 
 const movePacmanUp = () => {
-  if (
-    pacman.style.top === 0 && //make this check against every dot position in the array
-    parseInt(pacman.style.left.slice(0, 3)) > 89 &&
-    parseInt(pacman.style.left.slice(0, 3)) < 109
-  ) {
-    removeDot()
-  }
   direction = 'up'
+  //checkForDots(direction)
   pacman.style.transform = 'rotate(270deg)'
   //console.log(moveDown)
   //Put only first 3 characters of moveDown into itself
@@ -355,14 +364,8 @@ const movePacmanUp = () => {
 }
 
 const movePacmanLeft = () => {
-  if (
-    pacman.style.left === 0 && //make this check against every dot position in the array
-    parseInt(pacman.style.top.slice(0, 3)) > 80 &&
-    parseInt(pacman.style.top.slice(0, 3)) < 100
-  ) {
-    removeDot()
-  }
   direction = 'left'
+  //checkForDots(direction)
   pacman.style.transform = 'rotate(180deg)'
   //console.log(moveDown)
   //Put only first 3 characters of moveDown into itself
@@ -386,14 +389,8 @@ const movePacmanLeft = () => {
 }
 
 const movePacmanRight = () => {
-  if (
-    pacman.style.left === 0 && //make this check against every dot position in the array
-    parseInt(pacman.style.top.slice(0, 3)) > 80 &&
-    parseInt(pacman.style.top.slice(0, 3)) < 100
-  ) {
-    removeDot()
-  }
   direction = 'right'
+  //checkForDots(direction)
   pacman.style.transform = 'rotate(0deg)'
   //console.log(moveDown)
   //Put only first 3 characters of moveDown into itself
