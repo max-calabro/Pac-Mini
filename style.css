@@ -4,9 +4,9 @@ h1 {
 
 .game-board {
   /* background-image: 'url("Arcade - Pac-Man - General Sprites.png")'; */
+  /*background-color: black;*/
   height: 248px;
   width: 226px;
-  border: 1px solid black;
 
 }
 
@@ -16,4 +16,10 @@ h1 {
 
 .dots {
   position: relative;
+}
+
+.scoreboard {
+  height: 20px;
+  width: 60px;
+  border: 1px solid black;
 }

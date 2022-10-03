@@ -20,6 +20,10 @@ dot.style.width = '4px'
 dot.style.top = '80px'
 dot.style.left = '105px'
 
+//Scoreboard
+let score = 0
+document.querySelector('.scoreboard').innerHTML = score
+
 //Where the player will be on the gameboard in pixels
 let playerCoordinateY = 0
 let playerCoordinateX = 0
@@ -122,7 +126,22 @@ const pacmanEats = () => {
 
 //pacmanEats()
 
+//Remove a dot when Pac-man touches it
+const removeDot = () => {
+  console.log(
+    `Pac-man's top is ${pacman.style.top} and left is ${pacman.style.left}`
+  )
+  dot.remove()
+  score += 100
+}
+
 const pacmanChangeDirection = (keyPressed) => {
+  if (keyPressed.key === 't') {
+    console.log(
+      `Pac-man's top is ${pacman.style.top} and left is ${pacman.style.left}`
+    )
+    clearTimeout(timer)
+  }
   /* This is tied to pacmanMovement. Will hopefully be dry eventually
   if (
     keyPressed.key === 'w' ||
@@ -273,10 +292,17 @@ const movePacmanDown = () => {
   pacman.style.top = moveDown
 
   //Make him move!
-  timer = setTimeout(movePacmanDown, 10)
+  timer = setTimeout(movePacmanDown, 50)
 }
 
 const movePacmanUp = () => {
+  if (
+    pacman.style.top === '100px' &&
+    parseInt(pacman.style.left.slice(0, 3)) > 89 &&
+    parseInt(pacman.style.left.slice(0, 3)) < 109
+  ) {
+    removeDot()
+  }
   direction = 'up'
   pacman.style.transform = 'rotate(270deg)'
   //console.log(moveDown)
@@ -297,7 +323,7 @@ const movePacmanUp = () => {
   pacman.style.top = moveUp
 
   //Make him move!
-  timer = setTimeout(movePacmanUp, 10)
+  timer = setTimeout(movePacmanUp, 50)
 }
 
 const movePacmanLeft = () => {
@@ -321,7 +347,7 @@ const movePacmanLeft = () => {
   pacman.style.left = moveLeft
 
   //Make him move!
-  timer = setTimeout(movePacmanLeft, 10)
+  timer = setTimeout(movePacmanLeft, 50)
 }
 
 const movePacmanRight = () => {
@@ -345,7 +371,7 @@ const movePacmanRight = () => {
   pacman.style.left = moveRight
 
   //Make him move!
-  timer = setTimeout(movePacmanRight, 10)
+  timer = setTimeout(movePacmanRight, 50)
 }
 
 /*
