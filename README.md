@@ -40,7 +40,7 @@
 - [x] ~~It feels good to start a list off with an item already crossed off~~
 - [x] Created Repo, README, Trello board
 - [ ] Build Pac-Mini
-- [ ] jk, get a sprite on screen that can be moved by w/a/s/d
+- [x] get a sprite on screen that can be moved by w/a/s/d
 
 ---
 
