@@ -2,20 +2,24 @@
  *
  * Glabal constants and variables
  */
+//Dimensions of the sprite sheet in pixels
+let spriteSheetHeight = 248 //rows
+let spriteSheetWidth = 680 //Columns
+
+//Pac-man gets slapped on the board
 const pacman = document.createElement('div')
 pacman.className = 'pac-man'
 document.querySelector('.game-board').append(pacman)
 pacman.style.backgroundImage = 'url("Arcade - Pac-Man - General Sprites.png")'
-document.querySelector('.game-board').backgroundImage =
-  'url("Arcade - Pac-Man - General Sprites.png")'
+
+//Gameboard sprite position
+let board = document.querySelector('.game-board')
+board.style.backgroundPositionX = '-226px'
 
 //Dots
 const dot = document.createElement('div')
 dot.className = 'dots'
 document.querySelector('.game-board').append(dot)
-dot.style.backgroundImage = 'url("Arcade - Pac-Man - General Sprites.png")'
-dot.style.height = '4px'
-dot.style.width = '4px'
 //Dot starting position
 dot.style.top = '80px'
 dot.style.left = '105px'
@@ -31,20 +35,6 @@ let playerCoordinateX = 0
 //The coordinates of the sprite sheet to target a starting point for a specific frames. 208x000 is base pose Pac-man
 let spriteSheetX = '208px'
 let spriteSheetY = '000px'
-
-//How many pixel are needed for move to display a specific frame. Pac-man is 16x16
-let pacmanHeight = '16px'
-let pacmanWidth = '16px'
-pacman.style.height = pacmanHeight
-pacman.style.width = pacmanWidth
-
-//Show correct part of sprite sheet as background
-dot.style.backgroundPositionX = '-11px'
-dot.style.backgroundPositionY = '62px'
-
-//Dimensions of the sprite sheet in pixels
-let spriteSheetHeight = 248 //rows
-let spriteSheetWidth = 680 //Columns
 
 //What sprite pose Pac-man is currently in. 0/2 are base pose, 1 is wide mouth, and 3 is closed mouth.
 let whatPacmanFrame = 0
@@ -69,10 +59,39 @@ let moveOpposite = ''
 pacman.style.top = '180px'
 pacman.style.left = '105px'
 
+//Array of dots
+let dotArray = []
+
 /*
  *
  * Functions
  */
+//Display dots in dotArray
+const displayDots = () => {
+  for (let i = 0; i < dotArray.length; i++) {
+    let currentDot = document.createElement('div')
+    currentDot.className = 'dots'
+    currentDot.id = dotArray[i].id
+    document.querySelector('.game-board').append(currentDot)
+    currentDot.style.top = dotArray[i].topPosition + 'px'
+    currentDot.style.left = dotArray[i].leftPosition + 'px'
+    console.log(currentDot)
+  }
+}
+//create dots and fill array
+const createDots = () => {
+  for (let i = 0; i < 2; i++) {
+    let arrDot = {}
+    arrDot.id = 'dot' + i
+    arrDot.topPosition = parseInt(dot.style.top.slice(0, 3)) + i * 10
+    arrDot.leftPosition = parseInt(dot.style.left.slice(0, 3)) + i * 10
+    dotArray.push(arrDot)
+  }
+  displayDots()
+  console.log(dotArray)
+}
+createDots()
+
 const pacmanEats = () => {
   //When whatPacmanFrame is 0 or 2, base pose should display
   //When whatPacmanFrame is 1, wide pose should display
@@ -133,6 +152,7 @@ const removeDot = () => {
   )
   dot.remove()
   score += 100
+  document.querySelector('.scoreboard').innerHTML = score
 }
 
 const pacmanChangeDirection = (keyPressed) => {
