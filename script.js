@@ -18,8 +18,10 @@ board.style.backgroundPositionX = '-226px'
 
 //Dots
 const dot = document.createElement('div')
+/*
 dot.className = 'dots'
 document.querySelector('.game-board').append(dot)
+*/
 //Dot starting position
 dot.style.top = '80px'
 dot.style.left = '105px'
@@ -75,7 +77,6 @@ const displayDots = () => {
     document.querySelector('.game-board').append(currentDot)
     currentDot.style.top = dotArray[i].topPosition + 'px'
     currentDot.style.left = dotArray[i].leftPosition + 'px'
-    console.log(currentDot)
   }
 }
 //create dots and fill array
