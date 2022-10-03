@@ -1,0 +1,13 @@
+h1 {
+  text-decoration: underline;
+}
+
+.game-board {
+  border: 1px solid black;
+  height: 300px;
+  width: 300px;
+}
+
+.pac-man {
+  position: relative;
+}
