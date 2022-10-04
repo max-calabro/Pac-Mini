@@ -102,10 +102,51 @@ pacman.style.left = '208px'
 //Array of dots
 let dotArray = []
 
+let allGameSquares = document.querySelectorAll('.game-board div')
 /*
  *
  * Functions
  */
+const giveRowAndColumn = (row, column, position) => {
+  allGameSquares[position].dataset.row = row
+  allGameSquares[position].dataset.column = column
+}
+
+const fillStartingBoard = () => {
+  for (let i = 0; i < 31; i++) {
+    for (let j = 0; j < 28; j++) {
+      if (i === 0 && j === 0) {
+        console.log(`this is pmans square! i is ${i} and j is ${j}`)
+      } else {
+        let positionInGameBoard = i * 28 + j
+        giveRowAndColumn(i, j, positionInGameBoard)
+        //let currentGridSquare = document.querySelector(
+        //  'div [data-row="' + i + '"] [data-column="' + j + '"]'
+        //)
+        //console.log(currentGridSquare)
+        switch (gameBoard[positionInGameBoard]) {
+          case 0:
+            allGameSquares[positionInGameBoard].className = 'empty'
+          case 1:
+            allGameSquares[positionInGameBoard].className = 'wall'
+            break
+          case 2:
+            allGameSquares[positionInGameBoard].className = 'dot'
+            break
+          case 3:
+            allGameSquares[positionInGameBoard].className = 'power'
+            break
+          case 4:
+            allGameSquares[positionInGameBoard].className = 'door'
+            break
+        }
+      }
+    }
+  }
+}
+
+fillStartingBoard()
+
 //Display dots in dotArray
 const displayDots = () => {
   for (let i = 0; i < dotArray.length; i++) {
@@ -126,8 +167,8 @@ const createDots = () => {
     arrDot.leftPosition = /*parseInt(dot.style.left.slice(0, 3))*/ 1 + i * 10
     dotArray.push(arrDot)
   }
-  displayDots()
-  console.log(dotArray)
+  //displayDots()
+  //console.log(dotArray)
 }
 createDots()
 
