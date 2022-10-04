@@ -120,10 +120,6 @@ const fillStartingBoard = () => {
       } else {
         let positionInGameBoard = i * 28 + j
         giveRowAndColumn(i, j, positionInGameBoard)
-        //let currentGridSquare = document.querySelector(
-        //  'div [data-row="' + i + '"] [data-column="' + j + '"]'
-        //)
-        //console.log(currentGridSquare)
         switch (gameBoard[positionInGameBoard]) {
           case 0:
             allGameSquares[positionInGameBoard].className = 'empty'
@@ -147,6 +143,23 @@ const fillStartingBoard = () => {
 }
 
 fillStartingBoard()
+
+const findingWalls = () => {
+  //console.log(`pmans top ${pacman.style.top} and his left ${pacman.style.left}`)
+  //target row=16 (256px) column=13 (208px)
+  let nonoZone = allGameSquares[16 * 28 + 13]
+  //translate row(top) and column(left) numbers to pixels (multiply by 16)
+  //console.log(nonoZone.dataset.row * 16)
+  //console.log(nonoZone.dataset.column * 16)
+  if (
+    parseInt(pacman.style.top.slice(0, 3)) - 16 === nonoZone.dataset.row * 16 &&
+    parseInt(pacman.style.left.slice(0, 3)) >
+      nonoZone.dataset.column * 16 - 15 &&
+    parseInt(pacman.style.left.slice(0, 3)) < nonoZone.dataset.column * 16 + 15
+  ) {
+    console.log('this worked')
+  }
+}
 
 //Display dots in dotArray
 const displayDots = () => {
@@ -461,6 +474,7 @@ const movePacmanDown = () => {
 
 const movePacmanUp = () => {
   direction = 'up'
+  findingWalls()
   checkForDots(direction)
   pacman.style.transform = 'rotate(270deg)'
   //console.log(moveDown)
