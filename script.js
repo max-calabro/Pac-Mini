@@ -59,7 +59,7 @@ let moveOpposite = ''
 
 //Start Pac-man in the center
 pacman.style.top = '360px'
-pacman.style.left = '210px'
+pacman.style.left = '180px'
 
 //Array of dots
 let dotArray = []
@@ -149,12 +149,13 @@ const pacmanEats = () => {
 //Check for dots in the direction Pac-man is facing
 const checkForDots = (facing) => {
   if (facing === 'up') {
-    for (let i = 0; i > dotArray.length; i++) {
+    for (let i = 0; i < dotArray.length; i++) {
       if (
-        parseInt(pacman.style.top.slice(0, 3)) - 34 ===
+        parseInt(pacman.style.top.slice(0, 3)) - 35 ===
           dotArray[i].topPosition &&
-        parseInt(pacman.style.left.slice(0, 3)) > 89 &&
-        parseInt(pacman.style.left.slice(0, 3)) < 109
+        parseInt(pacman.style.left.slice(0, 3)) >=
+          dotArray[i].leftPosition - 29 &&
+        parseInt(pacman.style.left.slice(0, 3)) <= dotArray[i].leftPosition + 3
       ) {
         removeDot(dotArray[i].id)
       }
@@ -165,13 +166,15 @@ const checkForDots = (facing) => {
   pacman.style.top === '80px' &&
   parseInt(pacman.style.left.slice(0, 3)) > 89 &&
   parseInt(pacman.style.left.slice(0, 3)) < 109
-)*/
+)
+
+if (parseInt(pacman.style.top.slice(0, 3)) === dotArray[0].topPosition) {
+    console.log('this works')
+}
+    */
 
 //Remove a dot when Pac-man touches it and add to the score
 const removeDot = (id) => {
-  console.log(
-    `Pac-man's top is ${pacman.style.top} and left is ${pacman.style.left}`
-  )
   document.querySelector(`#${id}`).remove()
   score += 100
   document.querySelector('.scoreboard').innerHTML = score
@@ -180,8 +183,14 @@ const removeDot = (id) => {
 const pacmanChangeDirection = (keyPressed) => {
   if (keyPressed.key === 't') {
     console.log(
-      `Pac-man's top is ${pacman.style.top} and left is ${pacman.style.left}`
+      `Pac-man's top is ${parseInt(pacman.style.top.slice(0, 3))} and left is ${
+        pacman.style.left
+      }`
     )
+    console.log(
+      `dot top is ${dotArray[0].topPosition} and left is ${dotArray[0].leftPosition}`
+    )
+
     clearTimeout(timer)
   }
   /* This is tied to pacmanMovement. Will hopefully be dry eventually
@@ -340,7 +349,7 @@ const movePacmanDown = () => {
 
 const movePacmanUp = () => {
   direction = 'up'
-  //checkForDots(direction)
+  checkForDots(direction)
   pacman.style.transform = 'rotate(270deg)'
   //console.log(moveDown)
   //Put only first 3 characters of moveDown into itself
