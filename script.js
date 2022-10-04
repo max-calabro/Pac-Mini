@@ -155,18 +155,24 @@ const detectWalls = (whatDirection) => {
   //console.log(nonoZone.dataset.row * 16)
   //console.log(nonoZone.dataset.column * 16)
   if (
-    parseInt(pacman.style.left.slice(0, 3)) - 16 ===
+    parseInt(pacman.style.left.slice(0, 3)) + 16 ===
       nonoZone.dataset.column * 16 &&
     parseInt(pacman.style.top.slice(0, 3)) > nonoZone.dataset.row * 16 - 15 &&
     parseInt(pacman.style.top.slice(0, 3)) < nonoZone.dataset.row * 16 + 15
   ) {
-    console.log('this worked')
+    console.log('detected while moving right')
     bool = true
     return
   }
   bool = false
   return
 }
+//Detect walls moving left
+/*parseInt(pacman.style.left.slice(0, 3)) - 16 ===
+      nonoZone.dataset.column * 16 &&
+    parseInt(pacman.style.top.slice(0, 3)) > nonoZone.dataset.row * 16 - 15 &&
+    parseInt(pacman.style.top.slice(0, 3)) < nonoZone.dataset.row * 16 + 15*/
+
 //Detect walls moving down
 /*parseInt(pacman.style.top.slice(0, 3)) + 16 === nonoZone.dataset.row * 16 &&
     parseInt(pacman.style.left.slice(0, 3)) >
@@ -521,7 +527,7 @@ const movePacmanUp = () => {
 
 const movePacmanLeft = () => {
   direction = 'left'
-  detectWalls(direction)
+  //detectWalls(direction)
   checkForDots(direction)
   pacman.style.transform = 'rotate(180deg)'
   //console.log(moveDown)
@@ -547,6 +553,7 @@ const movePacmanLeft = () => {
 
 const movePacmanRight = () => {
   direction = 'right'
+  detectWalls(direction)
   checkForDots(direction)
   pacman.style.transform = 'rotate(0deg)'
   //console.log(moveDown)
