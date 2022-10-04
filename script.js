@@ -86,8 +86,8 @@ pacman.style.backgroundPositionY = spriteSheetY
 //Pac-man's movement up(-top), down(+top), right(+left), left(-left)
 let moveUp = '361px'
 let moveDown = '361px'
-let moveRight = '210px'
-let moveLeft = '210px'
+let moveRight = '228px'
+let moveLeft = '228px'
 //More movement variables. Timer, turns off setTimeout inside the movement, direction, tracks what direction Pac-man is moving.
 let timer = 0
 let direction = ''
@@ -97,7 +97,7 @@ let moveOpposite = ''
 
 //Start Pac-man in the center
 pacman.style.top = '368px'
-pacman.style.left = '208px'
+pacman.style.left = '228px'
 
 //Array of dots
 let dotArray = []
@@ -155,7 +155,10 @@ const detectWalls = (whatDirection) => {
   //console.log(nonoZone.dataset.row * 16)
   //console.log(nonoZone.dataset.column * 16)
   if (
-    
+    parseInt(pacman.style.left.slice(0, 3)) - 16 ===
+      nonoZone.dataset.column * 16 &&
+    parseInt(pacman.style.top.slice(0, 3)) > nonoZone.dataset.row * 16 - 15 &&
+    parseInt(pacman.style.top.slice(0, 3)) < nonoZone.dataset.row * 16 + 15
   ) {
     console.log('this worked')
     bool = true
@@ -464,7 +467,7 @@ const pacmanMovement = (direction) => {
 
 const movePacmanDown = () => {
   direction = 'down'
-  detectWalls(direction)
+  //detectWalls(direction)
   checkForDots(direction)
   //console.log(bool)
 
@@ -492,7 +495,7 @@ const movePacmanDown = () => {
 
 const movePacmanUp = () => {
   direction = 'up'
-  detectWalls(direction)
+  //detectWalls(direction)
   checkForDots(direction)
   pacman.style.transform = 'rotate(270deg)'
   //console.log(moveDown)
@@ -518,6 +521,7 @@ const movePacmanUp = () => {
 
 const movePacmanLeft = () => {
   direction = 'left'
+  detectWalls(direction)
   checkForDots(direction)
   pacman.style.transform = 'rotate(180deg)'
   //console.log(moveDown)
