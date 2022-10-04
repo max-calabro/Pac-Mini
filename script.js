@@ -2,7 +2,7 @@
  *
  * Glabal constants and variables
  */
-//Game board, what on it. Walls are 1, dots are 2, empty squares are 0, power dots are 3, ghost entrnce is 4
+//Game board, what on it. Walls are 1, dots are 2, empty squares are o, power dots are 3, ghost entrnce is 4
 let gameBoard = [
   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2,
@@ -127,6 +127,7 @@ const fillStartingBoard = () => {
         switch (gameBoard[positionInGameBoard]) {
           case 0:
             allGameSquares[positionInGameBoard].className = 'empty'
+            break
           case 1:
             allGameSquares[positionInGameBoard].className = 'wall'
             break
