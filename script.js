@@ -154,19 +154,35 @@ const detectWalls = (whatDirection) => {
   //translate row(top) and column(left) numbers to pixels (multiply by 16)
   //console.log(nonoZone.dataset.row * 16)
   //console.log(nonoZone.dataset.column * 16)
-  if (
-    parseInt(pacman.style.left.slice(0, 3)) + 16 ===
-      nonoZone.dataset.column * 16 &&
-    parseInt(pacman.style.top.slice(0, 3)) > nonoZone.dataset.row * 16 - 15 &&
-    parseInt(pacman.style.top.slice(0, 3)) < nonoZone.dataset.row * 16 + 15
-  ) {
-    console.log('detected while moving right')
-    bool = true
-    return
+  //pacmanLOrT and pacmanTOrL are each either left or top of pacman
+  //rowOrColumn and columnOrRow are each either row or column of square ahead of pacman
+  //addOrSub is either -16 or +16
+  if (whatDirection === 'right') {
+    let addOrSub = 16
+    let pacmanLOrT = pacman.style.left
+    let columnOrRow = nonoZone.dataset.column
+    let pacmanTOrL = pacman.style.top
+    let rowOrColumn = nonoZone.dataset.row
+
+    if (
+      parseInt(pacmanLOrT.slice(0, 3)) + addOrSub === columnOrRow * 16 &&
+      parseInt(pacmanTOrL.slice(0, 3)) > rowOrColumn * 16 - 15 &&
+      parseInt(pacmanTOrL.slice(0, 3)) < rowOrColumn * 16 + 15
+    ) {
+      console.log('detected while moving right')
+      bool = true
+      return
+    }
   }
   bool = false
   return
 }
+//Detect right
+/*parseInt(pacman.style.left.slice(0, 3)) + 16 ===
+      nonoZone.dataset.column * 16 &&
+    parseInt(pacman.style.top.slice(0, 3)) > nonoZone.dataset.row * 16 - 15 &&
+    parseInt(pacman.style.top.slice(0, 3)) < nonoZone.dataset.row * 16 + 15*/
+
 //Detect walls moving left
 /*parseInt(pacman.style.left.slice(0, 3)) - 16 ===
       nonoZone.dataset.column * 16 &&
