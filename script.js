@@ -102,6 +102,9 @@ pacman.style.left = '208px'
 //Array of dots
 let dotArray = []
 
+let walls = false
+let dots = false
+
 let allGameSquares = document.querySelectorAll('.game-board div')
 /*
  *
@@ -144,7 +147,7 @@ const fillStartingBoard = () => {
 
 fillStartingBoard()
 
-const findingWalls = () => {
+const detectWalls = (whatDirection) => {
   //console.log(`pmans top ${pacman.style.top} and his left ${pacman.style.left}`)
   //target row=16 (256px) column=13 (208px)
   let nonoZone = allGameSquares[16 * 28 + 13]
@@ -152,14 +155,26 @@ const findingWalls = () => {
   //console.log(nonoZone.dataset.row * 16)
   //console.log(nonoZone.dataset.column * 16)
   if (
-    parseInt(pacman.style.top.slice(0, 3)) - 16 === nonoZone.dataset.row * 16 &&
-    parseInt(pacman.style.left.slice(0, 3)) >
-      nonoZone.dataset.column * 16 - 15 &&
-    parseInt(pacman.style.left.slice(0, 3)) < nonoZone.dataset.column * 16 + 15
+    
   ) {
     console.log('this worked')
+    bool = true
+    return
   }
+  bool = false
+  return
 }
+//Detect walls moving down
+/*parseInt(pacman.style.top.slice(0, 3)) + 16 === nonoZone.dataset.row * 16 &&
+    parseInt(pacman.style.left.slice(0, 3)) >
+      nonoZone.dataset.column * 16 - 15 &&
+    parseInt(pacman.style.left.slice(0, 3)) < nonoZone.dataset.column * 16 + 15*/
+
+//Detect walls moving up
+/*parseInt(pacman.style.top.slice(0, 3)) - 16 === nonoZone.dataset.row * 16 &&
+    parseInt(pacman.style.left.slice(0, 3)) >
+      nonoZone.dataset.column * 16 - 15 &&
+    parseInt(pacman.style.left.slice(0, 3)) < nonoZone.dataset.column * 16 + 15*/
 
 //Display dots in dotArray
 const displayDots = () => {
@@ -449,7 +464,10 @@ const pacmanMovement = (direction) => {
 
 const movePacmanDown = () => {
   direction = 'down'
+  detectWalls(direction)
   checkForDots(direction)
+  //console.log(bool)
+
   pacman.style.transform = 'rotate(90deg)'
   //console.log(moveDown)
   //Put only first 3 characters of moveDown into itself
@@ -474,7 +492,7 @@ const movePacmanDown = () => {
 
 const movePacmanUp = () => {
   direction = 'up'
-  findingWalls()
+  detectWalls(direction)
   checkForDots(direction)
   pacman.style.transform = 'rotate(270deg)'
   //console.log(moveDown)
