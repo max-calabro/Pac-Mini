@@ -160,6 +160,18 @@ const checkForDots = (facing) => {
         removeDot(dotArray[i].id)
       }
     }
+  } else if (facing === 'down') {
+    for (let i = 0; i < dotArray.length; i++) {
+      if (
+        parseInt(pacman.style.top.slice(0, 3)) + 1 ===
+          dotArray[i].topPosition &&
+        parseInt(pacman.style.left.slice(0, 3)) >=
+          dotArray[i].leftPosition - 29 &&
+        parseInt(pacman.style.left.slice(0, 3)) <= dotArray[i].leftPosition + 3
+      ) {
+        removeDot(dotArray[i].id)
+      }
+    }
   }
 }
 /*if (
@@ -324,7 +336,7 @@ const pacmanMovement = (direction) => {
 
 const movePacmanDown = () => {
   direction = 'down'
-  //checkForDots(direction)
+  checkForDots(direction)
   pacman.style.transform = 'rotate(90deg)'
   //console.log(moveDown)
   //Put only first 3 characters of moveDown into itself
@@ -374,7 +386,7 @@ const movePacmanUp = () => {
 
 const movePacmanLeft = () => {
   direction = 'left'
-  //checkForDots(direction)
+  checkForDots(direction)
   pacman.style.transform = 'rotate(180deg)'
   //console.log(moveDown)
   //Put only first 3 characters of moveDown into itself
@@ -399,7 +411,7 @@ const movePacmanLeft = () => {
 
 const movePacmanRight = () => {
   direction = 'right'
-  //checkForDots(direction)
+  checkForDots(direction)
   pacman.style.transform = 'rotate(0deg)'
   //console.log(moveDown)
   //Put only first 3 characters of moveDown into itself
