@@ -59,7 +59,7 @@ let moveOpposite = ''
 
 //Start Pac-man in the center
 pacman.style.top = '360px'
-pacman.style.left = '180px'
+pacman.style.left = '210px'
 
 //Array of dots
 let dotArray = []
@@ -168,6 +168,28 @@ const checkForDots = (facing) => {
         parseInt(pacman.style.left.slice(0, 3)) >=
           dotArray[i].leftPosition - 29 &&
         parseInt(pacman.style.left.slice(0, 3)) <= dotArray[i].leftPosition + 3
+      ) {
+        removeDot(dotArray[i].id)
+      }
+    }
+  } else if (facing === 'left') {
+    for (let i = 0; i < dotArray.length; i++) {
+      if (
+        parseInt(pacman.style.left.slice(0, 3)) - 3 ===
+          dotArray[i].leftPosition &&
+        parseInt(pacman.style.top.slice(0, 3)) >= dotArray[i].topPosition &&
+        parseInt(pacman.style.top.slice(0, 3)) <= dotArray[i].topPosition + 33
+      ) {
+        removeDot(dotArray[i].id)
+      }
+    }
+  } else if (facing === 'right') {
+    for (let i = 0; i < dotArray.length; i++) {
+      if (
+        parseInt(pacman.style.left.slice(0, 3)) + 29 ===
+          dotArray[i].leftPosition &&
+        parseInt(pacman.style.top.slice(0, 3)) >= dotArray[i].topPosition &&
+        parseInt(pacman.style.top.slice(0, 3)) <= dotArray[i].topPosition + 33
       ) {
         removeDot(dotArray[i].id)
       }
@@ -356,7 +378,7 @@ const movePacmanDown = () => {
   pacman.style.top = moveDown
 
   //Make him move!
-  timer = setTimeout(movePacmanDown, 20)
+  timer = setTimeout(movePacmanDown, 0.2)
 }
 
 const movePacmanUp = () => {
@@ -381,7 +403,7 @@ const movePacmanUp = () => {
   pacman.style.top = moveUp
 
   //Make him move!
-  timer = setTimeout(movePacmanUp, 20)
+  timer = setTimeout(movePacmanUp, 0.2)
 }
 
 const movePacmanLeft = () => {
@@ -406,7 +428,7 @@ const movePacmanLeft = () => {
   pacman.style.left = moveLeft
 
   //Make him move!
-  timer = setTimeout(movePacmanLeft, 20)
+  timer = setTimeout(movePacmanLeft, 0.2)
 }
 
 const movePacmanRight = () => {
@@ -431,7 +453,7 @@ const movePacmanRight = () => {
   pacman.style.left = moveRight
 
   //Make him move!
-  timer = setTimeout(movePacmanRight, 20)
+  timer = setTimeout(movePacmanRight, 0.2)
 }
 
 /*
