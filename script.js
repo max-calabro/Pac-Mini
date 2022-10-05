@@ -123,7 +123,7 @@ const fillStartingBoard = () => {
   for (let i = 0; i < 31; i++) {
     for (let j = 0; j < 28; j++) {
       if (i === 0 && j === 0) {
-        console.log(`this is pmans square! i is ${i} and j is ${j}`)
+        //console.log(`this is pmans square! i is ${i} and j is ${j}`)
       } else {
         let positionInGameBoard = i * 28 + j
         giveRowAndColumn(i, j, positionInGameBoard)
@@ -156,6 +156,9 @@ let rowOrColumn = nonoZone.dataset.row
 let columnOrRow = nonoZone.dataset.column
 
 const detectWalls = (whatDirection) => {
+  //check if the next pixels in pacmans (current direction/16 +1) are equal to any of the rows or columns of any div
+  //if true then check what the class is
+
   //console.log(`pmans top ${pacman.style.top} and his left ${pacman.style.left}`)
   //target row=16 (256px) column=13 (208px)
   let nonoZone = allGameSquares[16 * 28 + 13]
@@ -166,11 +169,11 @@ const detectWalls = (whatDirection) => {
   //rowOrColumn and columnOrRow are each either row or column of square ahead of pacman
   //addOrSub is either -16 or +16
   if (whatDirection === 'right') {
-    let addOrSub = 16
-    let pacmanLOrT = pacman.style.left
-    let columnOrRow = nonoZone.dataset.column
-    let pacmanTOrL = pacman.style.top
-    let rowOrColumn = nonoZone.dataset.row
+    addOrSub = 16
+    pacmanLOrT = pacman.style.left
+    columnOrRow = nonoZone.dataset.column
+    pacmanTOrL = pacman.style.top
+    rowOrColumn = nonoZone.dataset.row
     //console.log(direction)
   } else if (whatDirection === 'left') {
     addOrSub = -16
@@ -192,7 +195,6 @@ const detectWalls = (whatDirection) => {
     columnOrRow = nonoZone.dataset.row
     pacmanTOrL = pacman.style.left
     rowOrColumn = nonoZone.dataset.column
-    console.log('HHHEEEEEELLLOOOOOOOOO?')
     //console.log(direction)
   } else {
     console.log('panic')
