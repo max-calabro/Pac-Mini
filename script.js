@@ -86,8 +86,8 @@ pacman.style.backgroundPositionY = spriteSheetY
 //Pac-man's movement up(-top), down(+top), right(+left), left(-left)
 let moveUp = '361px'
 let moveDown = '361px'
-let moveRight = '228px'
-let moveLeft = '228px'
+let moveRight = '208px'
+let moveLeft = '208px'
 //More movement variables. Timer, turns off setTimeout inside the movement, direction, tracks what direction Pac-man is moving.
 let timer = 0
 let direction = ''
@@ -97,15 +97,19 @@ let moveOpposite = ''
 
 //Start Pac-man in the center
 pacman.style.top = '368px'
-pacman.style.left = '228px'
+pacman.style.left = '208px'
 
 //Array of dots
 let dotArray = []
+let pacmanLOrT = pacman.style.top
+let pacmanTOrL = pacman.style.left
+let addOrSub = -16
 
 let walls = false
 let dots = false
 
 let allGameSquares = document.querySelectorAll('.game-board div')
+
 /*
  *
  * Functions
@@ -147,6 +151,10 @@ const fillStartingBoard = () => {
 
 fillStartingBoard()
 
+let nonoZone = allGameSquares[16 * 28 + 13]
+let rowOrColumn = nonoZone.dataset.row
+let columnOrRow = nonoZone.dataset.column
+
 const detectWalls = (whatDirection) => {
   //console.log(`pmans top ${pacman.style.top} and his left ${pacman.style.left}`)
   //target row=16 (256px) column=13 (208px)
@@ -163,31 +171,56 @@ const detectWalls = (whatDirection) => {
     let columnOrRow = nonoZone.dataset.column
     let pacmanTOrL = pacman.style.top
     let rowOrColumn = nonoZone.dataset.row
-
-    if (
-      parseInt(pacmanLOrT.slice(0, 3)) + addOrSub === columnOrRow * 16 &&
-      parseInt(pacmanTOrL.slice(0, 3)) > rowOrColumn * 16 - 15 &&
-      parseInt(pacmanTOrL.slice(0, 3)) < rowOrColumn * 16 + 15
-    ) {
-      console.log('detected while moving right')
-      bool = true
-      return
-    }
+    //console.log(direction)
+  } else if (whatDirection === 'left') {
+    addOrSub = -16
+    pacmanLOrT = pacman.style.left
+    columnOrRow = nonoZone.dataset.column
+    pacmanTOrL = pacman.style.top
+    rowOrColumn = nonoZone.dataset.row
+    //console.log(direction)
+  } else if (whatDirection === 'down') {
+    addOrSub = 16
+    pacmanLOrT = pacman.style.top
+    columnOrRow = nonoZone.dataset.row
+    pacmanTOrL = pacman.style.left
+    rowOrColumn = nonoZone.dataset.column
+    //console.log(direction)
+  } else if (whatDirection === 'up') {
+    addOrSub = -16
+    pacmanLOrT = pacman.style.top
+    columnOrRow = nonoZone.dataset.row
+    pacmanTOrL = pacman.style.left
+    rowOrColumn = nonoZone.dataset.column
+    console.log('HHHEEEEEELLLOOOOOOOOO?')
+    //console.log(direction)
+  } else {
+    console.log('panic')
   }
+  /*console.log('start here')
+  console.log(`you are moving ${direction}`)
+  console.log('pmanLOrT is ' + `${parseInt(pacmanLOrT.slice(0, 3)) + addOrSub}`)
+  console.log('pmanTOrL is ' + `${parseInt(pacmanTOrL.slice(0, 3)) + addOrSub}`)
+  console.log('addOrSub is ' + `${addOrSub}`)
+  console.log('rowOrColumn is ' + `${parseInt(rowOrColumn.slice(0, 3))}`)
+  console.log('columnOrRow is ' + parseInt(columnOrRow.slice(0, 3)))
+  console.log('end here')*/
+  if (
+    parseInt(pacmanLOrT.slice(0, 3)) + addOrSub ===
+      parseInt(columnOrRow.slice(0, 3)) * 16 &&
+    parseInt(pacmanTOrL.slice(0, 3)) >
+      parseInt(rowOrColumn.slice(0, 3)) * 16 - 15 &&
+    parseInt(pacmanTOrL.slice(0, 3)) <
+      parseInt(rowOrColumn.slice(0, 3)) * 16 + 15
+  ) {
+    console.log('detected wall')
+    bool = true
+    return
+  }
+
   bool = false
   return
 }
-//Detect right
-/*parseInt(pacman.style.left.slice(0, 3)) + 16 ===
-      nonoZone.dataset.column * 16 &&
-    parseInt(pacman.style.top.slice(0, 3)) > nonoZone.dataset.row * 16 - 15 &&
-    parseInt(pacman.style.top.slice(0, 3)) < nonoZone.dataset.row * 16 + 15*/
-
-//Detect walls moving left
-/*parseInt(pacman.style.left.slice(0, 3)) - 16 ===
-      nonoZone.dataset.column * 16 &&
-    parseInt(pacman.style.top.slice(0, 3)) > nonoZone.dataset.row * 16 - 15 &&
-    parseInt(pacman.style.top.slice(0, 3)) < nonoZone.dataset.row * 16 + 15*/
 
 //Detect walls moving down
 /*parseInt(pacman.style.top.slice(0, 3)) + 16 === nonoZone.dataset.row * 16 &&
@@ -200,6 +233,19 @@ const detectWalls = (whatDirection) => {
     parseInt(pacman.style.left.slice(0, 3)) >
       nonoZone.dataset.column * 16 - 15 &&
     parseInt(pacman.style.left.slice(0, 3)) < nonoZone.dataset.column * 16 + 15*/
+
+//done
+//Detect right
+/*parseInt(pacman.style.left.slice(0, 3)) + 16 ===
+      nonoZone.dataset.column * 16 &&
+    parseInt(pacman.style.top.slice(0, 3)) > nonoZone.dataset.row * 16 - 15 &&
+    parseInt(pacman.style.top.slice(0, 3)) < nonoZone.dataset.row * 16 + 15*/
+
+//Detect walls moving left
+/*parseInt(pacman.style.left.slice(0, 3)) - 16 ===
+      nonoZone.dataset.column * 16 &&
+    parseInt(pacman.style.top.slice(0, 3)) > nonoZone.dataset.row * 16 - 15 &&
+    parseInt(pacman.style.top.slice(0, 3)) < nonoZone.dataset.row * 16 + 15*/
 
 //Display dots in dotArray
 const displayDots = () => {
@@ -489,7 +535,7 @@ const pacmanMovement = (direction) => {
 
 const movePacmanDown = () => {
   direction = 'down'
-  //detectWalls(direction)
+  detectWalls(direction)
   checkForDots(direction)
   //console.log(bool)
 
@@ -517,7 +563,7 @@ const movePacmanDown = () => {
 
 const movePacmanUp = () => {
   direction = 'up'
-  //detectWalls(direction)
+  detectWalls(direction)
   checkForDots(direction)
   pacman.style.transform = 'rotate(270deg)'
   //console.log(moveDown)
@@ -543,7 +589,7 @@ const movePacmanUp = () => {
 
 const movePacmanLeft = () => {
   direction = 'left'
-  //detectWalls(direction)
+  detectWalls(direction)
   checkForDots(direction)
   pacman.style.transform = 'rotate(180deg)'
   //console.log(moveDown)
