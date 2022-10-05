@@ -151,11 +151,34 @@ const fillStartingBoard = () => {
 
 fillStartingBoard()
 
+//Make separate arrays of walls that can be hit only when moving up/R/L/D
+//Will still need to check dots constantly
+/* 
+Up walls by their row/column
+0: 1-12, 15-26 maybe this row could just be hard coded in pixels
+4: 2-5, 7-11, 13, 14, 16-20, 22-25
+7: 2-5, 10-12, 15-17, 22-25
+10: 9-11, 13, 14, 16-18, 
+13: 0-5, 7, 8, 19, 20, 22-27
+16: 10-17
+19: 1-5, 7, 8, 10-12, 15-17, 19, 20, 22-26
+22: 2, 3, 7-11, 13, 14, 16-20, 24, 25
+25: 1, 2, 4, 5, 10-12, 15-17, 22, 23, 25, 26
+28: 2-11, 13, 14, 16-25
+*/
+/*
+Down walls by their row/column
+*/
+
+console.log(gameBoard.length)
+
 let nonoZone = allGameSquares[16 * 28 + 13]
 let rowOrColumn = nonoZone.dataset.row
 let columnOrRow = nonoZone.dataset.column
 
 const detectWalls = (whatDirection) => {
+  //for (let i = 0; i < 31; i++) {}
+  //for (let j = 0; j < 28; j++) {}
   //check if the next pixels in pacmans (current direction/16 +1) are equal to any of the rows or columns of any div
   //if true then check what the class is
 
@@ -272,7 +295,7 @@ const createDots = () => {
   //displayDots()
   //console.log(dotArray)
 }
-createDots()
+//createDots()
 
 const pacmanEats = () => {
   //When whatPacmanFrame is 0 or 2, base pose should display
@@ -425,7 +448,7 @@ const pacmanChangeDirection = (keyPressed) => {
 
   if (keyPressed.key === 's' || keyPressed.key === 'ArrowDown') {
     if (direction != 'down') {
-      if (parseInt(moveDown.slice(0, 3)) + 1 != 466) {
+      if (parseInt(moveDown.slice(0, 3)) + 1 != 465) {
         clearTimeout(timer)
         movePacmanDown()
         //pacmanMovement(keyPressed)
@@ -433,7 +456,7 @@ const pacmanChangeDirection = (keyPressed) => {
     }
   } else if (keyPressed.key === 'w' || keyPressed.key === 'ArrowUp') {
     if (direction != 'up') {
-      if (parseInt(moveUp.slice(0, 3)) - 1 != -1) {
+      if (parseInt(moveUp.slice(0, 3)) - 1 != 15) {
         clearTimeout(timer)
         movePacmanUp()
         //pacmanMovement(keyPressed)
@@ -443,7 +466,7 @@ const pacmanChangeDirection = (keyPressed) => {
 
   if (keyPressed.key === 'd' || keyPressed.key === 'ArrowRight') {
     if (direction != 'right') {
-      if (parseInt(moveRight.slice(0, 3)) + 1 != 421) {
+      if (parseInt(moveRight.slice(0, 3)) + 1 != 417) {
         clearTimeout(timer)
         movePacmanRight()
         //pacmanMovement(keyPressed)
@@ -451,7 +474,7 @@ const pacmanChangeDirection = (keyPressed) => {
     }
   } else if (keyPressed.key === 'a' || keyPressed.key === 'ArrowLeft') {
     if (direction != 'left') {
-      if (parseInt(moveLeft.slice(0, 3)) - 1 != -1) {
+      if (parseInt(moveLeft.slice(0, 3)) - 1 != 15) {
         clearTimeout(timer)
         movePacmanLeft()
         //pacmanMovement(keyPressed)
@@ -538,7 +561,7 @@ const pacmanMovement = (direction) => {
 const movePacmanDown = () => {
   direction = 'down'
   detectWalls(direction)
-  checkForDots(direction)
+  //checkForDots(direction)
   //console.log(bool)
 
   pacman.style.transform = 'rotate(90deg)'
@@ -548,7 +571,7 @@ const movePacmanDown = () => {
   moveDown = parseInt(moveDown.slice(0, 3))
   moveUp = parseInt(moveUp.slice(0, 3))
   //console.log(moveDown)
-  if (moveDown + 1 != 466) {
+  if (moveDown + 1 != 465) {
     //Move down one soon to be pixel
     moveDown += 1
     moveUp += 1
@@ -566,7 +589,7 @@ const movePacmanDown = () => {
 const movePacmanUp = () => {
   direction = 'up'
   detectWalls(direction)
-  checkForDots(direction)
+  //checkForDots(direction)
   pacman.style.transform = 'rotate(270deg)'
   //console.log(moveDown)
   //Put only first 3 characters of moveDown into itself
@@ -575,7 +598,7 @@ const movePacmanUp = () => {
   moveDown = parseInt(moveDown.slice(0, 3))
   //console.log(moveDown)
   //Move down one soon to be pixel
-  if (moveUp - 1 != -1) {
+  if (moveUp - 1 != 15) {
     moveUp -= 1
     moveDown -= 1
   }
@@ -592,7 +615,7 @@ const movePacmanUp = () => {
 const movePacmanLeft = () => {
   direction = 'left'
   detectWalls(direction)
-  checkForDots(direction)
+  //checkForDots(direction)
   pacman.style.transform = 'rotate(180deg)'
   //console.log(moveDown)
   //Put only first 3 characters of moveDown into itself
@@ -601,7 +624,7 @@ const movePacmanLeft = () => {
   moveRight = parseInt(moveRight.slice(0, 3))
   //console.log(moveDown)
   //Move down one soon to be pixel
-  if (moveLeft - 1 != -1) {
+  if (moveLeft - 1 != 15) {
     moveLeft -= 1
     moveRight -= 1
   }
@@ -618,7 +641,7 @@ const movePacmanLeft = () => {
 const movePacmanRight = () => {
   direction = 'right'
   detectWalls(direction)
-  checkForDots(direction)
+  //checkForDots(direction)
   pacman.style.transform = 'rotate(0deg)'
   //console.log(moveDown)
   //Put only first 3 characters of moveDown into itself
@@ -627,7 +650,7 @@ const movePacmanRight = () => {
   moveLeft = parseInt(moveLeft.slice(0, 3))
   //console.log(moveDown)
   //Move down one soon to be pixel
-  if (moveRight + 1 != 421) {
+  if (moveRight + 1 != 417) {
     moveRight += 1
     moveLeft += 1
   }
@@ -651,37 +674,3 @@ document.addEventListener('keydown', (keyPressed) => {
   pacmanChangeDirection(keyPressed)
   //pacmanChangeDirection(keyPressed)
 })
-
-/*
-  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-  1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1,
-  1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1,
-  1, 3, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 3, 1,
-  1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1,
-  1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1,
-  1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1,
-  1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1,
-  1, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 1,
-  1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1,
-  1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1,
-  1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1,
-  1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 4, 4, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1,
-  1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1,
-  1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 1,
-  1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1,
-  1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1,
-  1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1,
-  1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1,
-  1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1,
-  1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1,
-  1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1,
-  1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1,
-  1, 3, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 0, 0, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 3, 1,
-  1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1,
-  1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1,
-  1, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 1,
-  1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1,
-  1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1,
-  1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1,
-  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-  */
