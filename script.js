@@ -119,9 +119,11 @@ let allGameSquares = document.querySelectorAll('.game-board div')
 }*/
 //Arrays containing the walls that can be hit from a given direction
 //const upWalls = [rowFour]
-let topWalls = [[], [], [], [], [], [], [], []]
+let upWalls = [[], [], [], [], [], [], [], []]
+let downWalls = [[], [], [], [], [], [], [], [], []]
+let rightWalls = [[], [], [], [], [], [], [], [], []]
+let leftWalls = [[], [], [], [], [], [], [], [], []]
 let index = 0
-let leftWalls = []
 let bool = false
 //Maybe also have empty's in a  arrray
 //and dots
@@ -148,6 +150,7 @@ const fillStartingBoard = () => {
             break
           case 1:
             allGameSquares[positionInGameBoard].className = 'wall'
+            //Fill upWalls
             if (
               i === 4 ||
               i === 10 ||
@@ -158,7 +161,9 @@ const fillStartingBoard = () => {
               i === 25 ||
               i === 28
             ) {
-              if (i === 10) {
+              if (i === 4) {
+                index = 0
+              } else if (i === 10) {
                 index = 1
               } else if (i === 13) {
                 index = 2
@@ -173,32 +178,127 @@ const fillStartingBoard = () => {
               } else if (i === 28) {
                 index = 7
               }
-
-              if (topWalls[index].length === 0) {
-                topWalls[index].push(i)
-                topWalls[index].push(j)
+              if (upWalls[index].length === 0) {
+                upWalls[index].push(i)
+                upWalls[index].push(j)
               } else {
-                topWalls[index].push(j)
+                upWalls[index].push(j)
               }
-              /*if (topWalls.length === 0 || topWalls[i] === undefined) {
-                console.log(`before new arr ` + topWalls)
-                //topWalls[i] = []
-                console.log(`array is this long before pushes ${topWalls}`)
-                topWalls[i].push(i)
-                topWalls[i].push(j)
-                console.log('after new arr' + topWalls)
-                console.log(`i is ${i} and j is ${j} ` + topWalls)*/
-              /*} else if (topWalls[i] === undefined) {
-                console.log('next is a new array')
-                topWalls[i] = Array(2)
-                topWalls[i].push(i)
-                topWalls[i].push(j)*/
-              /*} else if (topWalls[i][0] === i) {
-                console.log(`i is ${i} and j is ${j} ` + topWalls)
-                topWalls[i].push(j)
-              }*/
             }
-
+            //Fill downWalls
+            if (
+              i === 2 ||
+              i === 6 ||
+              i === 9 ||
+              i === 12 ||
+              i === 15 ||
+              i === 18 ||
+              i === 21 ||
+              i === 24 ||
+              i === 27
+            ) {
+              if (i === 2) {
+                index = 0
+              } else if (i === 6) {
+                index = 1
+              } else if (i === 9) {
+                index = 2
+              } else if (i === 12) {
+                index = 3
+              } else if (i === 15) {
+                index = 4
+              } else if (i === 18) {
+                index = 5
+              } else if (i === 21) {
+                index = 6
+              } else if (i === 24) {
+                index = 7
+              } else if (i === 27) {
+                index = 8
+              }
+              if (downWalls[index].length === 0) {
+                downWalls[index].push(i)
+                downWalls[index].push(j)
+              } else {
+                downWalls[index].push(j)
+              }
+            }
+            //Fill leftWalls
+            if (
+              j === 2 ||
+              j === 5 ||
+              j === 8 ||
+              j === 11 ||
+              j === 14 ||
+              j === 17 ||
+              j === 20 ||
+              j === 23 ||
+              j === 25
+            ) {
+              if (j === 2) {
+                index = 0
+              } else if (j === 5) {
+                index = 1
+              } else if (j === 8) {
+                index = 2
+              } else if (j === 11) {
+                index = 3
+              } else if (j === 14) {
+                index = 4
+              } else if (j === 17) {
+                index = 5
+              } else if (j === 20) {
+                index = 6
+              } else if (j === 23) {
+                index = 7
+              } else if (j === 25) {
+                index = 8
+              }
+              if (leftWalls[index].length === 0) {
+                leftWalls[index].push(j)
+                leftWalls[index].push(i)
+              } else {
+                leftWalls[index].push(i)
+              }
+            }
+            //Fill rightWalls
+            if (
+              j === 2 ||
+              j === 4 ||
+              j === 7 ||
+              j === 10 ||
+              j === 13 ||
+              j === 16 ||
+              j === 19 ||
+              j === 22 ||
+              j === 25
+            ) {
+              if (j === 2) {
+                index = 0
+              } else if (j === 4) {
+                index = 1
+              } else if (j === 7) {
+                index = 2
+              } else if (j === 10) {
+                index = 3
+              } else if (j === 13) {
+                index = 4
+              } else if (j === 16) {
+                index = 5
+              } else if (j === 19) {
+                index = 6
+              } else if (j === 22) {
+                index = 7
+              } else if (j === 25) {
+                index = 8
+              }
+              if (rightWalls[index].length === 0) {
+                rightWalls[index].push(j)
+                rightWalls[index].push(i)
+              } else {
+                rightWalls[index].push(i)
+              }
+            }
             break
           case 2:
             allGameSquares[positionInGameBoard].className = 'dot'
@@ -216,28 +316,31 @@ const fillStartingBoard = () => {
 }
 
 fillStartingBoard()
-//topWalls[0] = new Array(0, 1)
-//topWalls[0].push(2)
-//topWalls[1] = new Array(1, 1)
-//topWalls[1].push(2)
-
-//Make separate arrays of walls that can be hit only when moving up/R/L/D
-//Will still need to check dots constantly
-/* 
-Up walls by their row/column
-0: 1-12, 15-26 maybe this row could just be hard coded in pixels
-4: 2-5, 7-11, 13, 14, 16-20, 22-25
-7: 2-5, 10-12, 15-17, 22-25
-10: 9-11, 13, 14, 16-18, 
-13: 0-5, 7, 8, 19, 20, 22-27
-16: 10-17
-19: 1-5, 7, 8, 10-12, 15-17, 19, 20, 22-26
-22: 2, 3, 7-11, 13, 14, 16-20, 24, 25
-25: 1, 2, 4, 5, 10-12, 15-17, 22, 23, 25, 26
-28: 2-11, 13, 14, 16-25
-*/
+console.log(rightWalls)
 /*
-Down walls by their row/column
+Left walls by their column: rows
+2: 24, 25
+5: 2-4, 6, 7, 9-13, 15-19, 21-25
+8: 6-8, 11-13, 15-19, 24-26
+11: 2-4, 9, 10, 22, 23, 27, 28
+14: 1-4, 8-10, 20-22, 26-28
+17: 6, 7, 12-16, 18, 19, 24, 25
+20: 2-4, 6-13, 15-19, 21, 22, 24-26
+23: 23-25
+25: 2-4, 6, 7, 21, 22, 27, 28
+
+Right walls by their column: rows
+2: 2-4, 6, 7, 21, 22, 27, 28
+4: 23-25
+7: 2-4, 6-13, 15-19, 21, 22, 24-26
+10: 6, 7, 12-16, 18, 19, 24, 25
+13: 1-4, 8-10, 20-22, 26-28
+16: 2-4, 9, 10, 22, 23, 27, 28
+19: 6-8, 11-13, 15-19, 24-26
+22: 2-4, 6, 7, 9-13, 15-19, 21-25
+25: 24, 25
+
+
 */
 
 let nonoZone = allGameSquares[16 * 28 + 13]
@@ -284,13 +387,13 @@ const detectWalls = (whatDirection) => {
     addOrSub = -16
     pacmanLOrT = pacman.style.top
 
-    for (let i = 0; i < topWalls.length; i++) {
-      if (topWalls[i][0] * 16 === parseInt(pacmanLOrT.slice(0, 3)) + addOrSub) {
+    for (let i = 0; i < upWalls.length; i++) {
+      if (upWalls[i][0] * 16 === parseInt(pacmanLOrT.slice(0, 3)) + addOrSub) {
         console.log('maybe')
-        for (let j = 0; j < topWalls[i].length; j++) {
+        for (let j = 0; j < upWalls[i].length; j++) {
           if (
-            parseInt(pacmanTOrL.slice(0, 3)) > topWalls[i][j] * 16 - 15 &&
-            parseInt(pacmanTOrL.slice(0, 3)) < topWalls[i][j] * 16 + 15
+            parseInt(pacmanTOrL.slice(0, 3)) > upWalls[i][j] * 16 - 15 &&
+            parseInt(pacmanTOrL.slice(0, 3)) < upWalls[i][j] * 16 + 15
           ) {
             console.log('yes!')
             bool = true
@@ -574,6 +677,7 @@ const pacmanChangeDirection = (keyPressed) => {
       }
     }
   }
+  bool = false
 }
 
 /*I was getting some strange errors. Eveything was working except w and arrow up 
@@ -676,7 +780,7 @@ const movePacmanDown = () => {
   pacman.style.top = moveDown
 
   //Make him move!
-  timer = setTimeout(movePacmanDown, 50)
+  timer = setTimeout(movePacmanDown, 10)
 }
 
 const movePacmanUp = () => {
@@ -703,7 +807,7 @@ const movePacmanUp = () => {
   pacman.style.top = moveUp
 
   //Make him move!
-  timer = setTimeout(movePacmanUp, 2)
+  timer = setTimeout(movePacmanUp, 10)
 }
 
 const movePacmanLeft = () => {
@@ -729,7 +833,7 @@ const movePacmanLeft = () => {
   pacman.style.left = moveLeft
 
   //Make him move!
-  timer = setTimeout(movePacmanLeft, 50)
+  timer = setTimeout(movePacmanLeft, 10)
 }
 
 const movePacmanRight = () => {
@@ -755,7 +859,7 @@ const movePacmanRight = () => {
   pacman.style.left = moveRight
 
   //Make him move!
-  timer = setTimeout(movePacmanRight, 50)
+  timer = setTimeout(movePacmanRight, 10)
 }
 
 /*
