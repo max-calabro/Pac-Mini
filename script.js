@@ -84,8 +84,8 @@ pacman.style.backgroundPositionX = spriteSheetX
 pacman.style.backgroundPositionY = spriteSheetY
 
 //Pac-man's movement up(-top), down(+top), right(+left), left(-left)
-let moveUp = '361px'
-let moveDown = '361px'
+let moveUp = '368px'
+let moveDown = '368px'
 let moveRight = '208px'
 let moveLeft = '208px'
 //More movement variables. Timer, turns off setTimeout inside the movement, direction, tracks what direction Pac-man is moving.
@@ -110,13 +110,6 @@ let dots = false
 
 let allGameSquares = document.querySelectorAll('.game-board div')
 
-/*let rowFour = {
-  row: 4,
-  column2: 2,
-  column3: 3,
-  column4: 4,
-  column5: 5
-}*/
 //Arrays containing the walls that can be hit from a given direction
 //const upWalls = [rowFour]
 let upWalls = [[], [], [], [], [], [], [], []]
@@ -316,7 +309,6 @@ const fillStartingBoard = () => {
 }
 
 fillStartingBoard()
-console.log(rightWalls)
 /*
 Left walls by their column: rows
 2: 24, 25
@@ -368,6 +360,9 @@ const detectWalls = (whatDirection) => {
     columnOrRow = nonoZone.dataset.column
     pacmanTOrL = pacman.style.top
     rowOrColumn = nonoZone.dataset.row
+
+    isThatAWall(rightWalls, addOrSub, pacmanLOrT, pacmanTOrL)
+    return
     //console.log(direction)
   } else if (whatDirection === 'left') {
     addOrSub = -16
@@ -375,6 +370,9 @@ const detectWalls = (whatDirection) => {
     columnOrRow = nonoZone.dataset.column
     pacmanTOrL = pacman.style.top
     rowOrColumn = nonoZone.dataset.row
+
+    isThatAWall(leftWalls, addOrSub, pacmanLOrT, pacmanTOrL)
+    return
     //console.log(direction)
   } else if (whatDirection === 'down') {
     addOrSub = 16
@@ -382,50 +380,40 @@ const detectWalls = (whatDirection) => {
     columnOrRow = nonoZone.dataset.row
     pacmanTOrL = pacman.style.left
     rowOrColumn = nonoZone.dataset.column
+
+    isThatAWall(downWalls, addOrSub, pacmanLOrT, pacmanTOrL)
+    return
     //console.log(direction)
   } else if (whatDirection === 'up') {
     addOrSub = -16
     pacmanLOrT = pacman.style.top
 
-    for (let i = 0; i < upWalls.length; i++) {
+    /* for (let i = 0; i < upWalls.length; i++) {
       if (upWalls[i][0] * 16 === parseInt(pacmanLOrT.slice(0, 3)) + addOrSub) {
-        console.log('maybe')
+        //console.log('maybe')
         for (let j = 0; j < upWalls[i].length; j++) {
           if (
             parseInt(pacmanTOrL.slice(0, 3)) > upWalls[i][j] * 16 - 15 &&
             parseInt(pacmanTOrL.slice(0, 3)) < upWalls[i][j] * 16 + 15
           ) {
-            console.log('yes!')
+            //console.log('yes!')
             bool = true
             return
           }
         }
       }
-    }
+    }*/
     columnOrRow = nonoZone.dataset.row
     pacmanTOrL = pacman.style.left
     rowOrColumn = nonoZone.dataset.column
+
+    isThatAWall(upWalls, addOrSub, pacmanLOrT, pacmanTOrL)
+    return
     //console.log(direction)
   } else {
     console.log('panic')
   }
 
-  /*if (
-    whatDirection === 'up' &&
-    parseInt(pacmanLOrT.slice(0, 3)) + addOrSub === upWalls[0].row * 16 &&
-    parseInt(pacmanTOrL.slice(0, 3)) > upWalls[0].column2 * 16 - 15 &&
-    parseInt(pacmanTOrL.slice(0, 3)) < upWalls[0].column5 * 16 + 15
-  ) {
-    console.log('works')
-  }*/
-  /*console.log('start here')
-  console.log(`you are moving ${direction}`)
-  console.log('pmanLOrT is ' + `${parseInt(pacmanLOrT.slice(0, 3)) + addOrSub}`)
-  console.log('pmanTOrL is ' + `${parseInt(pacmanTOrL.slice(0, 3)) + addOrSub}`)
-  console.log('addOrSub is ' + `${addOrSub}`)
-  console.log('rowOrColumn is ' + `${parseInt(rowOrColumn.slice(0, 3))}`)
-  console.log('columnOrRow is ' + parseInt(columnOrRow.slice(0, 3)))
-  console.log('end here')*/
   if (
     parseInt(pacmanLOrT.slice(0, 3)) + addOrSub ===
       parseInt(columnOrRow.slice(0, 3)) * 16 &&
@@ -441,6 +429,27 @@ const detectWalls = (whatDirection) => {
 
   bool = false
   return
+}
+
+//which array is wallArray
+//addOrSub stays the same
+//pacmanLOrT stays
+//pacmanTOrL stays
+const isThatAWall = (wallArray, addOrSub, pacmanLOrT, pacmanTOrL) => {
+  for (let i = 0; i < wallArray.length; i++) {
+    if (wallArray[i][0] * 16 === parseInt(pacmanLOrT.slice(0, 3)) + addOrSub) {
+      //console.log('maybe')
+      for (let j = 0; j < wallArray[i].length; j++) {
+        if (
+          parseInt(pacmanTOrL.slice(0, 3)) > wallArray[i][j] * 16 - 15 &&
+          parseInt(pacmanTOrL.slice(0, 3)) < wallArray[i][j] * 16 + 15
+        ) {
+          //console.log('yes!')
+          bool = true
+        }
+      }
+    }
+  }
 }
 
 //Detect walls moving down
@@ -625,29 +634,12 @@ const pacmanChangeDirection = (keyPressed) => {
 
     clearTimeout(timer)
   }
-  /* This is tied to pacmanMovement. Will hopefully be dry eventually
-  if (
-    keyPressed.key === 'w' ||
-    keyPressed.key === 'ArrowUp' ||
-    keyPressed.key === 's' ||
-    keyPressed.key === 'ArrowDown' ||
-    keyPressed.key === 'd' ||
-    keyPressed.key === 'ArrowRight' ||
-    keyPressed.key === 'a' ||
-    keyPressed.key === 'Arrowleft'
-  ) {
-    direction = keyPressed.key
-    clearTimeout(timer)
-    pacmanMovement(direction)
-  }
-  */
 
   if (keyPressed.key === 's' || keyPressed.key === 'ArrowDown') {
     if (direction != 'down') {
       if (parseInt(moveDown.slice(0, 3)) + 1 != 465) {
         clearTimeout(timer)
         movePacmanDown()
-        //pacmanMovement(keyPressed)
       }
     }
   } else if (keyPressed.key === 'w' || keyPressed.key === 'ArrowUp') {
@@ -655,7 +647,6 @@ const pacmanChangeDirection = (keyPressed) => {
       if (parseInt(moveUp.slice(0, 3)) - 1 != 15) {
         clearTimeout(timer)
         movePacmanUp()
-        //pacmanMovement(keyPressed)
       }
     }
   }
@@ -665,7 +656,6 @@ const pacmanChangeDirection = (keyPressed) => {
       if (parseInt(moveRight.slice(0, 3)) + 1 != 417) {
         clearTimeout(timer)
         movePacmanRight()
-        //pacmanMovement(keyPressed)
       }
     }
   } else if (keyPressed.key === 'a' || keyPressed.key === 'ArrowLeft') {
@@ -673,87 +663,11 @@ const pacmanChangeDirection = (keyPressed) => {
       if (parseInt(moveLeft.slice(0, 3)) - 1 != 15) {
         clearTimeout(timer)
         movePacmanLeft()
-        //pacmanMovement(keyPressed)
       }
     }
   }
-  bool = false
+  //bool = false
 }
-
-/*I was getting some strange errors. Eveything was working except w and arrow up 
-const pacmanMovement = (direction) => {
-  //moveWhere ex. moveDown, moveOpposite ex. moveUp
-  //What direction is Pac-man moving
-  //Rotate the sprite and set up moveWhere and moveOpposite
-  if (direction === 'w' || direction === 'ArrowUp') {
-    pacman.style.transform = 'rotate(270deg)'
-    moveWhere = moveUp
-    moveOpposite = moveDown
-  } else if (direction === 's' || direction === 'ArrowDown') {
-    pacman.style.transform = 'rotate(90deg)'
-    moveWhere = moveDown
-    moveOpposite = moveUp
-  } else if (direction === 'd' || direction === 'ArrowRight') {
-    pacman.style.transform = 'rotate(0deg)'
-    moveWhere = moveRight
-    moveOpposite = moveLeft
-  } else if (direction === 'a' || direction === 'ArrowLeft') {
-    pacman.style.transform = 'rotate(180deg)'
-    moveWhere = moveLeft
-    moveOpposite = moveRight
-  }
-
-  //Copy only first 3 characters and turn those variables into intagers
-  moveWhere = parseInt(moveWhere.slice(0, 3))
-  moveOpposite = parseInt(moveOpposite.slice(0, 3))
-
-  //Amount of pixels to change by
-  if (
-    direction === 'w' ||
-    direction === 'ArrowUp' ||
-    direction === 'a' ||
-    direction === 'ArrowLeft'
-  ) {
-    pixel = -1
-    console.log('this works')
-  } else if (
-    direction === 'd' ||
-    direction === 'ArrowRight' ||
-    direction === 's' ||
-    direction === 'ArrowDown'
-  ) {
-    pixel = 1
-  }
-
-  //Apply change in pixels
-  moveWhere += pixel
-  moveOpposite += pixel
-
-  //Change back to string with 'px' attached
-  moveWhere = moveWhere.toString() + 'px'
-  moveOpposite = moveOpposite.toString() + 'px'
-
-  //Where to apply the change
-  if (
-    direction === 'w' ||
-    direction === 'ArrowUp' ||
-    direction === 's' ||
-    direction === 'ArrowDown'
-  ) {
-    pacman.style.top = moveWhere
-  } else if (
-    direction === 'd' ||
-    direction === 'ArrowRight' ||
-    direction === 'a' ||
-    direction === 'ArrowLeft'
-  ) {
-    pacman.style.left = moveWhere
-  }
-
-  //Make him move!
-  timer = setTimeout(pacmanMovement, 10)
-}
-*/
 
 const movePacmanDown = () => {
   direction = 'down'
@@ -768,11 +682,12 @@ const movePacmanDown = () => {
   moveDown = parseInt(moveDown.slice(0, 3))
   moveUp = parseInt(moveUp.slice(0, 3))
   //console.log(moveDown)
-  if (moveDown + 1 != 465) {
+  if (moveDown + 1 != 465 && bool != true) {
     //Move down one soon to be pixel
     moveDown += 1
     moveUp += 1
   }
+  bool = false
   //Change back to string with 'px' attached
   moveDown = moveDown.toString() + 'px'
   moveUp = moveUp.toString() + 'px'
@@ -809,7 +724,7 @@ const movePacmanUp = () => {
   //Make him move!
   timer = setTimeout(movePacmanUp, 10)
 }
-
+console.log(leftWalls)
 const movePacmanLeft = () => {
   direction = 'left'
   detectWalls(direction)
@@ -822,10 +737,11 @@ const movePacmanLeft = () => {
   moveRight = parseInt(moveRight.slice(0, 3))
   //console.log(moveDown)
   //Move down one soon to be pixel
-  if (moveLeft - 1 != 15) {
+  if (moveLeft - 1 != 15 && bool != true) {
     moveLeft -= 1
     moveRight -= 1
   }
+  bool = false
   //Change back to string with 'px' attached
   moveLeft = moveLeft.toString() + 'px'
   moveRight = moveRight.toString() + 'px'
@@ -848,10 +764,11 @@ const movePacmanRight = () => {
   moveLeft = parseInt(moveLeft.slice(0, 3))
   //console.log(moveDown)
   //Move down one soon to be pixel
-  if (moveRight + 1 != 417) {
+  if (moveRight + 1 != 417 && bool != true) {
     moveRight += 1
     moveLeft += 1
   }
+  bool = false
   //Change back to string with 'px' attached
   moveRight = moveRight.toString() + 'px'
   moveLeft = moveLeft.toString() + 'px'
