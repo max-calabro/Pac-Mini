@@ -110,6 +110,21 @@ let dots = false
 
 let allGameSquares = document.querySelectorAll('.game-board div')
 
+/*let rowFour = {
+  row: 4,
+  column2: 2,
+  column3: 3,
+  column4: 4,
+  column5: 5
+}*/
+//Arrays containing the walls that can be hit from a given direction
+//const upWalls = [rowFour]
+let topWalls = [[], [], [], [], [], [], [], []]
+console.log(topWalls)
+let index = 0
+let leftWalls = []
+//Maybe also have empty's in a  arrray
+//and dots
 /*
  *
  * Functions
@@ -133,6 +148,63 @@ const fillStartingBoard = () => {
             break
           case 1:
             allGameSquares[positionInGameBoard].className = 'wall'
+            if (
+              i === 4 ||
+              i === 10 ||
+              i === 13 ||
+              i === 16 ||
+              i === 19 ||
+              i === 22 ||
+              i === 25 ||
+              i === 28
+            ) {
+              if (i === 10) {
+                index = 1
+              } else if (i === 13) {
+                index = 2
+              } else if (i === 16) {
+                index = 3
+              } else if (i === 19) {
+                index = 4
+              } else if (i === 22) {
+                index = 5
+              } else if (i === 25) {
+                index = 6
+              } else if (i === 28) {
+                index = 7
+              }
+
+              console.log(
+                `index is ${index} and topWalls is ${Array.isArray(
+                  topWalls[0]
+                )}`
+              )
+              if (topWalls[index].length === 0) {
+                console.log(`this should happen 8 times`)
+                topWalls[index].push(i)
+                topWalls[index].push(j)
+              } else {
+                topWalls[index].push(j)
+              }
+              /*if (topWalls.length === 0 || topWalls[i] === undefined) {
+                console.log(`before new arr ` + topWalls)
+                //topWalls[i] = []
+                console.log(`array is this long before pushes ${topWalls}`)
+                topWalls[i].push(i)
+                topWalls[i].push(j)
+                console.log('after new arr' + topWalls)
+                console.log(`i is ${i} and j is ${j} ` + topWalls)*/
+              /*} else if (topWalls[i] === undefined) {
+                console.log('next is a new array')
+                topWalls[i] = Array(2)
+                topWalls[i].push(i)
+                topWalls[i].push(j)*/
+              /*} else if (topWalls[i][0] === i) {
+                console.log(`i is ${i} and j is ${j} ` + topWalls)
+                topWalls[i].push(j)
+              }*/
+            }
+
             break
           case 2:
             allGameSquares[positionInGameBoard].className = 'dot'
@@ -150,6 +222,11 @@ const fillStartingBoard = () => {
 }
 
 fillStartingBoard()
+//topWalls[0] = new Array(0, 1)
+//topWalls[0].push(2)
+//topWalls[1] = new Array(1, 1)
+//topWalls[1].push(2)
+console.log(topWalls)
 
 //Make separate arrays of walls that can be hit only when moving up/R/L/D
 //Will still need to check dots constantly
@@ -222,6 +299,15 @@ const detectWalls = (whatDirection) => {
   } else {
     console.log('panic')
   }
+
+  /*if (
+    whatDirection === 'up' &&
+    parseInt(pacmanLOrT.slice(0, 3)) + addOrSub === upWalls[0].row * 16 &&
+    parseInt(pacmanTOrL.slice(0, 3)) > upWalls[0].column2 * 16 - 15 &&
+    parseInt(pacmanTOrL.slice(0, 3)) < upWalls[0].column5 * 16 + 15
+  ) {
+    console.log('works')
+  }*/
   /*console.log('start here')
   console.log(`you are moving ${direction}`)
   console.log('pmanLOrT is ' + `${parseInt(pacmanLOrT.slice(0, 3)) + addOrSub}`)
