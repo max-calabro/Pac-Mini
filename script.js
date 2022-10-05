@@ -120,9 +120,9 @@ let allGameSquares = document.querySelectorAll('.game-board div')
 //Arrays containing the walls that can be hit from a given direction
 //const upWalls = [rowFour]
 let topWalls = [[], [], [], [], [], [], [], []]
-console.log(topWalls)
 let index = 0
 let leftWalls = []
+let bool = false
 //Maybe also have empty's in a  arrray
 //and dots
 /*
@@ -174,13 +174,7 @@ const fillStartingBoard = () => {
                 index = 7
               }
 
-              console.log(
-                `index is ${index} and topWalls is ${Array.isArray(
-                  topWalls[0]
-                )}`
-              )
               if (topWalls[index].length === 0) {
-                console.log(`this should happen 8 times`)
                 topWalls[index].push(i)
                 topWalls[index].push(j)
               } else {
@@ -226,7 +220,6 @@ fillStartingBoard()
 //topWalls[0].push(2)
 //topWalls[1] = new Array(1, 1)
 //topWalls[1].push(2)
-console.log(topWalls)
 
 //Make separate arrays of walls that can be hit only when moving up/R/L/D
 //Will still need to check dots constantly
@@ -246,8 +239,6 @@ Up walls by their row/column
 /*
 Down walls by their row/column
 */
-
-console.log(gameBoard.length)
 
 let nonoZone = allGameSquares[16 * 28 + 13]
 let rowOrColumn = nonoZone.dataset.row
@@ -292,6 +283,22 @@ const detectWalls = (whatDirection) => {
   } else if (whatDirection === 'up') {
     addOrSub = -16
     pacmanLOrT = pacman.style.top
+
+    for (let i = 0; i < topWalls.length; i++) {
+      if (topWalls[i][0] * 16 === parseInt(pacmanLOrT.slice(0, 3)) + addOrSub) {
+        console.log('maybe')
+        for (let j = 0; j < topWalls[i].length; j++) {
+          if (
+            parseInt(pacmanTOrL.slice(0, 3)) > topWalls[i][j] * 16 - 15 &&
+            parseInt(pacmanTOrL.slice(0, 3)) < topWalls[i][j] * 16 + 15
+          ) {
+            console.log('yes!')
+            bool = true
+            return
+          }
+        }
+      }
+    }
     columnOrRow = nonoZone.dataset.row
     pacmanTOrL = pacman.style.left
     rowOrColumn = nonoZone.dataset.column
@@ -669,7 +676,7 @@ const movePacmanDown = () => {
   pacman.style.top = moveDown
 
   //Make him move!
-  timer = setTimeout(movePacmanDown, 0.2)
+  timer = setTimeout(movePacmanDown, 50)
 }
 
 const movePacmanUp = () => {
@@ -684,10 +691,11 @@ const movePacmanUp = () => {
   moveDown = parseInt(moveDown.slice(0, 3))
   //console.log(moveDown)
   //Move down one soon to be pixel
-  if (moveUp - 1 != 15) {
+  if (moveUp - 1 != 15 && bool != true) {
     moveUp -= 1
     moveDown -= 1
   }
+  bool = false
   //Change back to string with 'px' attached
   moveUp = moveUp.toString() + 'px'
   moveDown = moveDown.toString() + 'px'
@@ -695,7 +703,7 @@ const movePacmanUp = () => {
   pacman.style.top = moveUp
 
   //Make him move!
-  timer = setTimeout(movePacmanUp, 0.2)
+  timer = setTimeout(movePacmanUp, 2)
 }
 
 const movePacmanLeft = () => {
@@ -721,7 +729,7 @@ const movePacmanLeft = () => {
   pacman.style.left = moveLeft
 
   //Make him move!
-  timer = setTimeout(movePacmanLeft, 0.2)
+  timer = setTimeout(movePacmanLeft, 50)
 }
 
 const movePacmanRight = () => {
@@ -747,7 +755,7 @@ const movePacmanRight = () => {
   pacman.style.left = moveRight
 
   //Make him move!
-  timer = setTimeout(movePacmanRight, 0.2)
+  timer = setTimeout(movePacmanRight, 50)
 }
 
 /*
