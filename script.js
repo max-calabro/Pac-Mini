@@ -320,7 +320,6 @@ Left walls by their column: rows
 20: 2-4, 6-13, 15-19, 21, 22, 24-26
 23: 23-25
 25: 2-4, 6, 7, 21, 22, 27, 28
-
 Right walls by their column: rows
 2: 2-4, 6, 7, 21, 22, 27, 28
 4: 23-25
@@ -331,8 +330,6 @@ Right walls by their column: rows
 19: 6-8, 11-13, 15-19, 24-26
 22: 2-4, 6, 7, 9-13, 15-19, 21-25
 25: 24, 25
-
-
 */
 
 let nonoZone = allGameSquares[16 * 28 + 13]
@@ -610,7 +607,6 @@ const checkForDots = (facing) => {
   parseInt(pacman.style.left.slice(0, 3)) > 89 &&
   parseInt(pacman.style.left.slice(0, 3)) < 109
 )
-
 if (parseInt(pacman.style.top.slice(0, 3)) === dotArray[0].topPosition) {
     console.log('this works')
 }
