@@ -1,5 +1,33 @@
+@font-face {
+  font-family: PAC-FONT;
+  src: url(PAC-FONT.TTF);
+}
+
+@font-face {
+  font-family: PIXEL;
+  src: url(PublicPixel-z84yD.ttf);
+}
+
+body {
+  display: grid;
+  justify-content: center;
+
+background-color: black;
+  height: 600px;
+}
+
 h1 {
-  text-decoration: underline;
+  display: flex;
+  justify-content: center;
+
+  font-family: PAC-FONT;
+  color: #fdff00;
+  margin: 5px;
+}
+
+.main {
+  display: flex;
+  align-items:flex-end;
 }
 
 .game-board {
@@ -31,8 +59,25 @@ h1 {
   background-position-y: 58px;
 }
 
+section {
+  display: flex;
+}
 .scoreboard {
+  flex-grow: 2;
+  padding: 2px;
+  padding-top: 8px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+
   height: 20px;
   width: 60px;
-  border: 1px solid black;
+
+  font-family: PIXEL;
+  font-weight: bold;
+  color: #fdff00;
+}
+
+.lives {
+  height: 30px;
+  width: 30px;
 }

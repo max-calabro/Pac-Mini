@@ -54,6 +54,15 @@ document.querySelector('.game-board').prepend(pacman)
 let board = document.querySelector('.game-board')
 board.style.backgroundPositionX = '0px'
 
+//Pac-mans lives
+const lives = document.querySelectorAll('.lives')
+for (let i = 0; i < lives.length; i++) {
+  lives[i].style.backgroundImage =
+    'url("Arcade - Pac-Man - General Sprites.png")'
+  lives[i].style.backgroundPositionX = '416px'
+  lives[i].style.backgroundPositionY = '000px'
+}
+
 //Dot
 const dot = document.createElement('div')
 
