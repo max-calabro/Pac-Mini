@@ -2,7 +2,7 @@
  *
  * Glabal constants and variables
  */
-//Game board, what on it. Walls are 1, dots are 2, empty squares are o, power dots are 3, ghost entrnce is 4
+//Game board, what on it. Walls are 1, dots are 2, empty squares are 0, power dots are 3, ghost entrnce is 4
 let gameBoard = [
   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2,
@@ -47,7 +47,7 @@ let spriteSheetWidth = 1360 //Columns
 //Pac-man gets slapped on the board
 const pacman = document.createElement('div')
 pacman.className = 'pac-man'
-document.querySelector('.game-board').prepend(pacman)
+
 //pacman.style.backgroundImage = 'url("Pac-Man - Transparent.png")'
 pacman.style.backgroundImage = 'url("Pac-Man - Small - Transparent..png")'
 
@@ -119,7 +119,7 @@ let addOrSub = -16
 let walls = false
 let dots = false
 
-let allGameSquares = document.querySelectorAll('.game-board div')
+//let allGameSquares = document.querySelectorAll('.game-board div')
 
 //All the dots
 let dotArray = []
@@ -146,19 +146,19 @@ console
  *
  * Functions
  */
-const giveRowAndColumn = (row, column, position) => {
+const giveRowAndColumn = (row, column, position, allGameSquares) => {
   allGameSquares[position].dataset.row = row
   allGameSquares[position].dataset.column = column
 }
 
-const fillStartingBoard = () => {
+const fillStartingBoard = (allGameSquares) => {
   for (let i = 0; i < 31; i++) {
     for (let j = 0; j < 28; j++) {
       if (i === 0 && j === 0) {
         //console.log(`this is pmans square! i is ${i} and j is ${j}`)
       } else {
         let positionInGameBoard = i * 28 + j
-        giveRowAndColumn(i, j, positionInGameBoard)
+        giveRowAndColumn(i, j, positionInGameBoard, allGameSquares)
         switch (gameBoard[positionInGameBoard]) {
           case 0:
             allGameSquares[positionInGameBoard].className = 'empty'
@@ -317,6 +317,12 @@ const fillStartingBoard = () => {
             break
           case 2:
             allGameSquares[positionInGameBoard].className = 'dot'
+            allGameSquares[positionInGameBoard].style.backgroundImage =
+              'url("Arcade - Pac-Man - General Sprites.png")'
+            allGameSquares[positionInGameBoard].style.backgroundPositionX =
+              '-16px'
+            allGameSquares[positionInGameBoard].style.backgroundPositionY =
+              '48px'
 
             //adding dots to dotArray
             let dot = {
@@ -339,7 +345,6 @@ const fillStartingBoard = () => {
   }
 }
 
-fillStartingBoard()
 //console.log(dotArray)
 /*console.log(upWalls)
 console.log(downWalls)
@@ -368,11 +373,11 @@ Right walls by their column: rows
 25: 24, 25
 */
 
-let nonoZone = allGameSquares[16 * 28 + 13]
-let rowOrColumn = nonoZone.dataset.row
-let columnOrRow = nonoZone.dataset.column
+//let nonoZone = allGameSquares[16 * 28 + 13]
+//let rowOrColumn = nonoZone.dataset.row
+//let columnOrRow = nonoZone.dataset.column
 
-const detectWalls = (whatDirection) => {
+const detectWalls = (keyPressed) => {
   //for (let i = 0; i < 31; i++) {}
   //for (let j = 0; j < 28; j++) {}
   //check if the next pixels in pacmans (current direction/16 +1) are equal to any of the rows or columns of any div
@@ -380,51 +385,71 @@ const detectWalls = (whatDirection) => {
 
   //console.log(`pmans top ${pacman.style.top} and his left ${pacman.style.left}`)
   //target row=16 (256px) column=13 (208px)
-  let nonoZone = allGameSquares[16 * 28 + 13]
+  //let nonoZone = allGameSquares[16 * 28 + 13]
   //translate row(top) and column(left) numbers to pixels (multiply by 16)
   //console.log(nonoZone.dataset.row * 16)
   //console.log(nonoZone.dataset.column * 16)
   //pacmanLOrT and pacmanTOrL are each either left or top of pacman
   //rowOrColumn and columnOrRow are each either row or column of square ahead of pacman
   //addOrSub is either -16 or +16
-  if (whatDirection === 'right') {
+  if (
+    keyPressed === 'd' ||
+    keyPressed === 'ArrowRight' ||
+    keyPressed === 'right'
+  ) {
     addOrSub = 16
     pacmanLOrT = pacman.style.left
-    columnOrRow = nonoZone.dataset.column
+    //columnOrRow = nonoZone.dataset.column
     pacmanTOrL = pacman.style.top
-    rowOrColumn = nonoZone.dataset.row
+    //rowOrColumn = nonoZone.dataset.row
 
+    isThatADot()
     isThatAWall(rightWalls, addOrSub, pacmanLOrT, pacmanTOrL)
     return
     //console.log(direction)
-  } else if (whatDirection === 'left') {
+  } else if (
+    keyPressed === 'a' ||
+    keyPressed === 'ArrowLeft' ||
+    keyPressed === 'left'
+  ) {
     addOrSub = -16
     pacmanLOrT = pacman.style.left
-    columnOrRow = nonoZone.dataset.column
+    //columnOrRow = nonoZone.dataset.column
     pacmanTOrL = pacman.style.top
-    rowOrColumn = nonoZone.dataset.row
+    //rowOrColumn = nonoZone.dataset.row
 
+    isThatADot()
     isThatAWall(leftWalls, addOrSub, pacmanLOrT, pacmanTOrL)
     return
     //console.log(direction)
-  } else if (whatDirection === 'down') {
+  } else if (
+    keyPressed === 's' ||
+    keyPressed === 'ArrowDown' ||
+    keyPressed === 'down'
+  ) {
     addOrSub = 16
     pacmanLOrT = pacman.style.top
-    columnOrRow = nonoZone.dataset.row
+    //columnOrRow = nonoZone.dataset.row
     pacmanTOrL = pacman.style.left
-    rowOrColumn = nonoZone.dataset.column
+    //rowOrColumn = nonoZone.dataset.column
 
+    isThatADot()
     isThatAWall(downWalls, addOrSub, pacmanLOrT, pacmanTOrL)
     return
     //console.log(direction)
-  } else if (whatDirection === 'up') {
+  } else if (
+    keyPressed === 'w' ||
+    keyPressed === 'ArrowUp' ||
+    keyPressed === 'up'
+  ) {
     addOrSub = -16
     pacmanLOrT = pacman.style.top
 
-    columnOrRow = nonoZone.dataset.row
+    //columnOrRow = nonoZone.dataset.row
     pacmanTOrL = pacman.style.left
-    rowOrColumn = nonoZone.dataset.column
+    //rowOrColumn = nonoZone.dataset.column
 
+    isThatADot()
     isThatAWall(upWalls, addOrSub, pacmanLOrT, pacmanTOrL)
     return
     //console.log(direction)
@@ -458,6 +483,27 @@ const isThatAWall = (wallArray, addOrSub, pacmanLOrT, pacmanTOrL) => {
         ) {
           bool = true
         }
+      }
+    }
+  }
+}
+
+const isThatADot = () => {
+  let allGameSquares = document.querySelectorAll('.game-board div')
+  for (let i = 0; i < dotArray.length; i++) {
+    if (dotArray[i].eaten != true) {
+      if (
+        parseInt(pacman.style.top.slice(0, 3)) + 8 ===
+          dotArray[i].row * 16 + 8 &&
+        parseInt(pacman.style.left.slice(0, 3)) + 8 ===
+          dotArray[i].column * 16 + 8
+      ) {
+        dotArray[i].eaten = true
+        score += 100
+        document.querySelector('.scoreboard').innerHTML = score
+        let positionInGameBoard = dotArray[i].row * 28 + dotArray[i].column
+        allGameSquares[positionInGameBoard].style.backgroundPositionX = '-600px'
+        allGameSquares[positionInGameBoard].style.backgroundPositionY = '200px'
       }
     }
   }
@@ -570,8 +616,6 @@ const pacmanEats = () => {
   timerEat = setTimeout(pacmanEats, 100)
 }
 
-//pacmanEats()
-
 //Check for dots in the direction Pac-man is facing
 const checkForDots = (facing) => {
   if (facing === 'up') {
@@ -643,14 +687,16 @@ const pacmanChangeDirection = (keyPressed) => {
 
   if (keyPressed.key === 's' || keyPressed.key === 'ArrowDown') {
     if (direction != 'down') {
-      if (parseInt(moveDown.slice(0, 3)) + 1 != 465) {
+      detectWalls(keyPressed.key)
+      if (parseInt(moveDown.slice(0, 3)) + 1 != 465 && bool != true) {
         clearTimeout(timer)
         movePacmanDown()
       }
     }
   } else if (keyPressed.key === 'w' || keyPressed.key === 'ArrowUp') {
     if (direction != 'up') {
-      if (parseInt(moveUp.slice(0, 3)) - 1 != 15) {
+      detectWalls(keyPressed.key)
+      if (parseInt(moveUp.slice(0, 3)) - 1 != 15 && bool != true) {
         clearTimeout(timer)
         movePacmanUp()
       }
@@ -659,26 +705,27 @@ const pacmanChangeDirection = (keyPressed) => {
 
   if (keyPressed.key === 'd' || keyPressed.key === 'ArrowRight') {
     if (direction != 'right') {
-      if (parseInt(moveRight.slice(0, 3)) + 1 != 417) {
+      detectWalls(keyPressed.key)
+      if (parseInt(moveRight.slice(0, 3)) + 1 != 417 && bool != true) {
         clearTimeout(timer)
         movePacmanRight()
       }
     }
   } else if (keyPressed.key === 'a' || keyPressed.key === 'ArrowLeft') {
     if (direction != 'left') {
-      if (parseInt(moveLeft.slice(0, 3)) - 1 != 15) {
+      detectWalls(keyPressed.key)
+      if (parseInt(moveLeft.slice(0, 3)) - 1 != 15 && bool != true) {
         clearTimeout(timer)
         movePacmanLeft()
       }
     }
   }
-  //bool = false
+  bool = false
 }
 
 const movePacmanDown = () => {
   direction = 'down'
   detectWalls(direction)
-
   pacman.style.transform = 'rotate(90deg)'
   //Put only first 3 characters of moveDown into itself
   //Turn those variables into intagers
@@ -771,6 +818,17 @@ const movePacmanRight = () => {
   timer = setTimeout(movePacmanRight, 10)
 }
 
+const startGame = () => {
+  document.querySelector('.start').remove()
+  document.querySelector('.instructions').remove()
+  document.querySelector('.game-board').prepend(pacman)
+  let allGameSquares = document.querySelectorAll('.game-board div')
+  fillStartingBoard(allGameSquares)
+  console.log('board is filled')
+  pacmanEats()
+  movePacmanRight()
+}
+//startGame()
 /*
  *
  * Listeners
@@ -780,4 +838,8 @@ const movePacmanRight = () => {
 document.addEventListener('keydown', (keyPressed) => {
   pacmanChangeDirection(keyPressed)
   //pacmanChangeDirection(keyPressed)
+})
+
+document.querySelector('.start').addEventListener('click', () => {
+  startGame()
 })

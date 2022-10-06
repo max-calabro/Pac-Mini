@@ -23,6 +23,40 @@ h1 {
   font-family: PAC-FONT;
   color: #fdff00;
   margin: 5px;
+  height: 50px;
+}
+
+h2 {
+  font-family: PAC-FONT;
+  color: #fdff00;
+
+  height: 50px;
+  margin: 5px;
+}
+
+.how-to {
+  position: absolute;
+  color:antiquewhite;
+  top: 75px;
+  left: 140px;
+  width: 440px;
+  height: 500px;
+  border: 1px solid antiquewhite;
+}
+.page {
+  display: grid;
+}
+
+.start {
+  position: absolute;
+  top: 290px;
+  left: 320px;
+}
+
+.instructions {
+  position: absolute;
+  top: 340px;
+  left: 320px;
 }
 
 .main {
@@ -40,7 +74,7 @@ h1 {
   background-image: url("Arcade - Pac-Man - General Sprites.png");
   height: 496px;
   width: 448px;
-  border: 1px solid black;
+  border: 1px solid antiquewhite;
 }
 
 .pac-man {
@@ -50,13 +84,17 @@ h1 {
   /*background-color: antiquewhite;*/
 }
 
+.wall {
+  /*background-color: lime;*/
+}
+
 .dots {
-  position: relative;
+  display: flex;
+
   height: 4px;
   width: 4px;
-  background-image: url("Arcade - Pac-Man - General Sprites.png");
-  background-position-x: -22px;
-  background-position-y: 58px;
+  
+
 }
 
 section {
