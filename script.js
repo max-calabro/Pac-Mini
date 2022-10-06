@@ -56,10 +56,7 @@ board.style.backgroundPositionX = '0px'
 
 //Dot
 const dot = document.createElement('div')
-/*
-dot.className = 'dots'
-document.querySelector('.game-board').append(dot)
-*/
+
 //Dot starting position
 dot.style.top = '160px'
 dot.style.left = '210px'
@@ -120,6 +117,8 @@ let index = 0
 let bool = false
 //Maybe also have empty's in a  arrray
 //and dots
+
+console
 /*
  *
  * Functions
@@ -309,6 +308,10 @@ const fillStartingBoard = () => {
 }
 
 fillStartingBoard()
+console.log(upWalls)
+console.log(downWalls)
+console.log(rightWalls)
+console.log(leftWalls)
 /*
 Left walls by their column: rows
 2: 24, 25
@@ -385,21 +388,6 @@ const detectWalls = (whatDirection) => {
     addOrSub = -16
     pacmanLOrT = pacman.style.top
 
-    /* for (let i = 0; i < upWalls.length; i++) {
-      if (upWalls[i][0] * 16 === parseInt(pacmanLOrT.slice(0, 3)) + addOrSub) {
-        //console.log('maybe')
-        for (let j = 0; j < upWalls[i].length; j++) {
-          if (
-            parseInt(pacmanTOrL.slice(0, 3)) > upWalls[i][j] * 16 - 15 &&
-            parseInt(pacmanTOrL.slice(0, 3)) < upWalls[i][j] * 16 + 15
-          ) {
-            //console.log('yes!')
-            bool = true
-            return
-          }
-        }
-      }
-    }*/
     columnOrRow = nonoZone.dataset.row
     pacmanTOrL = pacman.style.left
     rowOrColumn = nonoZone.dataset.column
@@ -419,7 +407,6 @@ const detectWalls = (whatDirection) => {
     parseInt(pacmanTOrL.slice(0, 3)) <
       parseInt(rowOrColumn.slice(0, 3)) * 16 + 15
   ) {
-    console.log('detected wall')
     bool = true
     return
   }
@@ -428,20 +415,14 @@ const detectWalls = (whatDirection) => {
   return
 }
 
-//which array is wallArray
-//addOrSub stays the same
-//pacmanLOrT stays
-//pacmanTOrL stays
 const isThatAWall = (wallArray, addOrSub, pacmanLOrT, pacmanTOrL) => {
   for (let i = 0; i < wallArray.length; i++) {
     if (wallArray[i][0] * 16 === parseInt(pacmanLOrT.slice(0, 3)) + addOrSub) {
-      //console.log('maybe')
       for (let j = 0; j < wallArray[i].length; j++) {
         if (
           parseInt(pacmanTOrL.slice(0, 3)) > wallArray[i][j] * 16 - 15 &&
           parseInt(pacmanTOrL.slice(0, 3)) < wallArray[i][j] * 16 + 15
         ) {
-          //console.log('yes!')
           bool = true
         }
       }
@@ -490,21 +471,17 @@ const createDots = () => {
   for (let i = 0; i < 0; i++) {
     let arrDot = {}
     arrDot.id = 'dot' + i
-    arrDot.topPosition = /*parseInt(dot.style.top.slice(0, 3))*/ 1 + i * 10
-    arrDot.leftPosition = /*parseInt(dot.style.left.slice(0, 3))*/ 1 + i * 10
+    arrDot.topPosition = 1 + i * 10
+    arrDot.leftPosition = 1 + i * 10
     dotArray.push(arrDot)
   }
-  //displayDots()
-  //console.log(dotArray)
 }
-//createDots()
 
 const pacmanEats = () => {
   //When whatPacmanFrame is 0 or 2, base pose should display
   //When whatPacmanFrame is 1, wide pose should display
   //When whatPacmanFrame is 3, closed pose should display
   if (whatPacmanFrame === 0 || whatPacmanFrame === 3) {
-    //console.log(`started pacman eats 0 or 2`)
     //Put only first 3 characters of spriteSheetX & Y into themself
     //Turn those variables into intagers
     spriteSheetX = parseInt(spriteSheetX.slice(0, 3))
@@ -525,7 +502,6 @@ const pacmanEats = () => {
       whatPacmanFrame = 0
     }
   } else if (whatPacmanFrame === 1 || whatPacmanFrame === 2) {
-    //console.log(`started pacman eats 1 or 3`)
     //put first 3 characters of spriteSheetX & Y into new variables
     //turn those variables into intagers
     spriteSheetX = parseInt(spriteSheetX.slice(0, 3))
@@ -546,7 +522,6 @@ const pacmanEats = () => {
       whatPacmanFrame = 3
     }
   }
-  //console.log(`finished pacmanEats. We are on frame ${whatPacmanFrame}`)
   timerEat = setTimeout(pacmanEats, 100)
 }
 
@@ -602,15 +577,6 @@ const checkForDots = (facing) => {
     }
   }
 }
-/*if (
-  pacman.style.top === '80px' &&
-  parseInt(pacman.style.left.slice(0, 3)) > 89 &&
-  parseInt(pacman.style.left.slice(0, 3)) < 109
-)
-if (parseInt(pacman.style.top.slice(0, 3)) === dotArray[0].topPosition) {
-    console.log('this works')
-}
-    */
 
 //Remove a dot when Pac-man touches it and add to the score
 const removeDot = (id) => {
@@ -626,7 +592,6 @@ const pacmanChangeDirection = (keyPressed) => {
         pacman.style.left
       }`
     )
-    console.log(dotArray)
 
     clearTimeout(timer)
   }
@@ -668,16 +633,12 @@ const pacmanChangeDirection = (keyPressed) => {
 const movePacmanDown = () => {
   direction = 'down'
   detectWalls(direction)
-  //checkForDots(direction)
-  //console.log(bool)
 
   pacman.style.transform = 'rotate(90deg)'
-  //console.log(moveDown)
   //Put only first 3 characters of moveDown into itself
   //Turn those variables into intagers
   moveDown = parseInt(moveDown.slice(0, 3))
   moveUp = parseInt(moveUp.slice(0, 3))
-  //console.log(moveDown)
   if (moveDown + 1 != 465 && bool != true) {
     //Move down one soon to be pixel
     moveDown += 1
@@ -697,14 +658,11 @@ const movePacmanDown = () => {
 const movePacmanUp = () => {
   direction = 'up'
   detectWalls(direction)
-  //checkForDots(direction)
   pacman.style.transform = 'rotate(270deg)'
-  //console.log(moveDown)
   //Put only first 3 characters of moveDown into itself
   //Turn those variables into intagers
   moveUp = parseInt(moveUp.slice(0, 3))
   moveDown = parseInt(moveDown.slice(0, 3))
-  //console.log(moveDown)
   //Move down one soon to be pixel
   if (moveUp - 1 != 15 && bool != true) {
     moveUp -= 1
@@ -720,18 +678,14 @@ const movePacmanUp = () => {
   //Make him move!
   timer = setTimeout(movePacmanUp, 10)
 }
-console.log(leftWalls)
 const movePacmanLeft = () => {
   direction = 'left'
   detectWalls(direction)
-  //checkForDots(direction)
   pacman.style.transform = 'rotate(180deg)'
-  //console.log(moveDown)
   //Put only first 3 characters of moveDown into itself
   //Turn those variables into intagers
   moveLeft = parseInt(moveLeft.slice(0, 3))
   moveRight = parseInt(moveRight.slice(0, 3))
-  //console.log(moveDown)
   //Move down one soon to be pixel
   if (moveLeft - 1 != 15 && bool != true) {
     moveLeft -= 1
@@ -751,14 +705,11 @@ const movePacmanLeft = () => {
 const movePacmanRight = () => {
   direction = 'right'
   detectWalls(direction)
-  //checkForDots(direction)
   pacman.style.transform = 'rotate(0deg)'
-  //console.log(moveDown)
   //Put only first 3 characters of moveDown into itself
   //Turn those variables into intagers
   moveRight = parseInt(moveRight.slice(0, 3))
   moveLeft = parseInt(moveLeft.slice(0, 3))
-  //console.log(moveDown)
   //Move down one soon to be pixel
   if (moveRight + 1 != 417 && bool != true) {
     moveRight += 1

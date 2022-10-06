@@ -1,4 +1,4 @@
-# Pac-Mini
+![](https://i.imgur.com/V9vKuw0.png)
 
 ## Date: 01/10/2022
 
@@ -23,6 +23,14 @@
 
 ---
 
+## **_Getting Started_**
+
+You play as Pac-Man and your goal is to eat all the dots without being caught by the ghosts! You can move Pac-Man with the arrow keys or w,a,s,d. Once all the dots are eaten you are a winner! But, if you are caught by the ghosts you lose a life. Lose three lives and its Game Over!
+
+This project is deployed on surge and can be viewed [here]Add link.
+
+---
+
 ## **_What it feels like to play Pac-Mini_**
 
 #### **OMG! I'm playing Pac-Mini!**
@@ -35,19 +43,16 @@
 
 ---
 
-## **_Updates_**
+## **_Future Updates_**
 
-- [x] ~~It feels good to start a list off with an item already crossed off~~
-- [x] Created Repo, README, Trello board
-- [ ] Build Pac-Mini
-- [x] get a sprite on screen that can be moved by w/a/s/d
+- Sounds
+- Ghosts
+- More levels
 
 ---
 
 ### **_Credits_**
 
 #### Images: [Our Bulldogs](https://imgur.com/user/OurBulldogs)
-
-#### Tutorial Used: [Source](https://google.com)
 
 #### Inspiration: [My Little Gnocchi](https://www.instagram.com/my_little_gnocchi/?hl=en)
