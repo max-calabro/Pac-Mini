@@ -33,30 +33,71 @@ h2 {
   height: 50px;
   margin: 5px;
 }
-
 .how-to {
+  display: grid;
+  grid-template-columns: [first] 1fr [line2] 2fr [end];
+  grid-template-rows: [first] 2fr [line2] 2fr [line3] 2fr [line4] 1fr [end];
   position: absolute;
+  
   color:antiquewhite;
   top: 75px;
-  left: 140px;
-  width: 440px;
-  height: 500px;
+  left: 0px;
+  right: 0px;
+  margin: 0 auto;
+
+  width: 448px;
+  height: 480px;
   border: 1px solid antiquewhite;
 }
+
+.texts {
+  display: flex;
+  align-items: center;
+
+  width: 250px;
+  margin: 0 auto;
+
+  font-family: PIXEL;
+  color:#fdff00;
+
+
+}
+
+.p-pic{
+  background-image: url("Arcade - Pac-Man - General Sprites.png");
+  background-position-x: 350px;
+  background-position-y: 100px;
+}
+.d-pic{
+  background-image: url("Arcade - Pac-Man - General Sprites.png");
+}
+.g-pic{
+  background-image: url("Arcade - Pac-Man - General Sprites.png");
+}
+
 .page {
   display: grid;
 }
 
 .start {
   position: absolute;
-  top: 290px;
-  left: 320px;
+
+  top: 300px;
+  left: 0px;
+  right: 0px;
+  margin: 0 auto;
+  width: 90px;
+
 }
 
 .instructions {
   position: absolute;
   top: 340px;
-  left: 320px;
+  left: 0px;
+  right: 0px;
+  margin: 0 auto;
+  width: 80px;
+  color:antiquewhite;
 }
 
 .main {
@@ -66,8 +107,6 @@ h2 {
 
 .game-board {
   display: grid;
-  /*grid-template-columns: [first] 10px [line2] 30px [line3] 30px [line4]18px [line5] 30px [line6] 18px [line7] 30px [line8] 18px [line9] 30px [line10] 18px [line11] 30px [line12] 18px [line13] 30px [line14] 18px [line15] 30px [line16] 18px [line17] 32px [line18] 30px [line19] 10px;*/
-  /*grid-template-rows: [first] 10px [line2] 30px [line3] 32px [line4] 30px [line5] 18px [line6] 30px [line7] 18px [line8] 30px [line9] 18px [line10] 30px [line11] 18px [line12] 30px [line13] 18px [line14] 30px [line15] 18px [line16] 30px [line17] 18px [line18] 30px [line19] 18px [line20] 30px [line21] 10px;*/
   grid-template-columns: repeat(28, 16px);
   grid-template-rows: repeat(30, 16px);
 
