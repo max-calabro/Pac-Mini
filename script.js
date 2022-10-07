@@ -324,7 +324,7 @@ const fillStartingBoard = (allGameSquares) => {
               '48px'
 
             //adding dots to dotArray
-            //if (i === 23 && j === 19) {
+            //if (i === 23 && j === 19) { //This line is great for testing and bug fixing so I'm leaving it in
             let dot = {
               eaten: false,
               row: i,
@@ -682,7 +682,8 @@ const removeDot = (id) => {
 }
 
 const pacmanChangeDirection = (keyPressed) => {
-  if (keyPressed.key === 't') {
+  //This is great for testing and bug fixing so I'm leaving it in
+  /*if (keyPressed.key === 't') {
     console.log(
       `Pac-man's top is ${parseInt(pacman.style.top.slice(0, 3))} and left is ${
         pacman.style.left
@@ -690,7 +691,7 @@ const pacmanChangeDirection = (keyPressed) => {
     )
 
     clearTimeout(timer)
-  }
+  }*/
 
   if (keyPressed.key === 's' || keyPressed.key === 'ArrowDown') {
     if (direction != 'down') {
@@ -874,7 +875,6 @@ const again = () => {
     allGameSquares[positionInGameBoard].style.backgroundPositionY = '48px'
   }
 }
-//startGame()
 /*
  *
  * Listeners
