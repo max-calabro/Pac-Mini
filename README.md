@@ -10,7 +10,7 @@
 
 ## **_Description_**
 
-#### This is a rendition of Pac-Man made for my General Assembly coding bootcamp.
+#### This is a rendition of Pac-Man's first level made for my General Assembly coding bootcamp.
 
 ---
 
@@ -20,6 +20,7 @@
 - CSS
 - Javascript
 - GitHub
+- Surge
 
 ---
 
@@ -27,26 +28,27 @@
 
 You play as Pac-Man and your goal is to eat all the dots without being caught by the ghosts! You can move Pac-Man with the arrow keys or w,a,s,d. Once all the dots are eaten you are a winner! But, if you are caught by the ghosts you lose a life. Lose three lives and its Game Over!
 
-This project is deployed on surge and can be viewed [here]Add link.
+This project is deployed on surge and can be played [here.](https://max-pac-mini.surge.sh/index.html)
 
 ---
 
-## **_What it feels like to play Pac-Mini_**
+## **Screenshots**
 
-#### **OMG! I'm playing Pac-Mini!**
+#### **Instructions**
 
-![Add Links](https://i.imgur.com/ox1PvbS.jpeg)
+![Add Links](https://i.imgur.com/pJDyV1Q.png)
 
-#### **Oh no! A ghost is coming for me!**
+#### **Gameplay**
 
-![Add Links](https://pbs.twimg.com/media/E_NxLe3WYAIm-Qj?format=jpg&name=medium)
+![Add Links](https://i.imgur.com/3ixKMjI.png)
 
 ---
 
 ## **_Future Updates_**
 
-- Sounds
 - Ghosts
+- Power Dots and Fruit
+- Sounds
 - More levels
 
 ---
