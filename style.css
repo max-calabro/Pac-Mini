@@ -20,10 +20,11 @@ h1 {
   display: flex;
   justify-content: center;
 
+
   font-family: PAC-FONT;
   color: #fdff00;
   margin: 5px;
-  height: 50px;
+  margin-top: 10px;
 }
 
 h2 {
@@ -31,23 +32,27 @@ h2 {
   color: #fdff00;
 
   height: 50px;
-  margin: 5px;
+  margin-top: 25px;
 }
 .how-to {
   display: grid;
   grid-template-columns: [first] 1fr [line2] 2fr [end];
   grid-template-rows: [first] 2fr [line2] 2fr [line3] 2fr [line4] 1fr [end];
   position: absolute;
+
   
-  color:antiquewhite;
   top: 75px;
   left: 0px;
   right: 0px;
   margin: 0 auto;
 
-  width: 448px;
+  width: 440px;
   height: 480px;
-  border: 1px solid antiquewhite;
+  rgb(35, 18, 225);
+  border-color: rgb(35, 18, 225);
+  border-width: 6px;
+  border-radius: 7px;
+  border-style: double;
 }
 
 .texts {
@@ -64,15 +69,108 @@ h2 {
 }
 
 .p-pic{
+  display: flex;
+  align-self: center;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+
   background-image: url("Arcade - Pac-Man - General Sprites.png");
-  background-position-x: 350px;
-  background-position-y: 100px;
+  background-position-x: 322px;
+  background-position-y: -30px;
+
+  height: 69px;
+  width: 63px;
 }
 .d-pic{
-  background-image: url("Arcade - Pac-Man - General Sprites.png");
+  display: grid;
+  grid-template-columns: [first] 4fr [line2] 7fr [end];
+  grid-template-rows: 1fr;
 }
-.g-pic{
+.pman{
+  display: flex;
+  align-self: center;
+  justify-self: right;
+
   background-image: url("Arcade - Pac-Man - General Sprites.png");
+  background-position-x: 448px;
+  background-position-y: 0px;
+
+  height: 32px;
+  width: 24px;
+}
+.doots{
+  display: flex;
+  align-self: center;
+
+  background-image: url("Arcade - Pac-Man - General Sprites.png");
+  background-position-x: -16px;
+  background-position-y: -10px;
+
+  height: 26px;
+  width: 100px;
+}
+
+.g-pic{
+  display: grid;
+  grid-template-columns: [first] 1fr [line2] 1fr [end];
+  grid-template-rows: [first] 1fr [line2] 1fr [end];
+
+  justify-content: center;
+  align-content: center;
+
+  left: 0;
+  right: 0;
+  margin: 25px;
+}
+
+.blinky {
+  background-image: url("Arcade - Pac-Man - General Sprites.png");
+  background-position-x: 256px;
+  background-position-y: -127px;
+
+  height: 34px;
+  width: 33px;
+  margin-left: 9px;
+}
+.pinky {
+  background-image: url("Arcade - Pac-Man - General Sprites.png");
+  background-position-x: 353px;
+  background-position-y: -160px;
+
+  height: 33px;
+  width: 33px;
+  margin-left: 9px;
+}
+.inky {
+  background-image: url("Arcade - Pac-Man - General Sprites.png");
+  background-position-x: 320px;
+  background-position-y: -192px;
+
+  height: 33px;
+  width: 33px;
+  margin-left: 9px;
+}
+.clyde {
+  background-image: url("Arcade - Pac-Man - General Sprites.png");
+  background-position-x: 452px;
+  background-position-y: -224px;
+
+  height: 35px;
+  width: 35px;
+  margin-left: 9px;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: PAC-FONT;
+  color: #fdff00;
+
+  height: 35px;
+  width: 110px;
 }
 
 .page {
@@ -80,24 +178,34 @@ h2 {
 }
 
 .start {
+  font-family: PIXEL;
+  text-decoration: none;
+
   position: absolute;
 
-  top: 300px;
+  top: 248px;
   left: 0px;
   right: 0px;
   margin: 0 auto;
-  width: 90px;
-
+  width: 155px;
+  background-image: none;
+  background: none;
+  color:#fdff00;
+  border: none;
 }
 
 .instructions {
+  font-family: PIXEL;
+  text-decoration: none;
+
+  font-size: small;
   position: absolute;
-  top: 340px;
+  top: 342px;
   left: 0px;
   right: 0px;
   margin: 0 auto;
-  width: 80px;
-  color:antiquewhite;
+  width: 155px;
+  color:#fdff00
 }
 
 .main {
@@ -113,7 +221,6 @@ h2 {
   background-image: url("Arcade - Pac-Man - General Sprites.png");
   height: 496px;
   width: 448px;
-  border: 1px solid antiquewhite;
 }
 
 .pac-man {
