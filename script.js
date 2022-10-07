@@ -129,7 +129,6 @@ const dotObject = {
   row: 0,
   column: 0
 }
-
 //Arrays containing the walls that can be hit from a given direction
 //const upWalls = [rowFour]
 let upWalls = [[], [], [], [], [], [], [], []]
@@ -325,12 +324,14 @@ const fillStartingBoard = (allGameSquares) => {
               '48px'
 
             //adding dots to dotArray
+            //if (i === 23 && j === 19) {
             let dot = {
               eaten: false,
               row: i,
               column: j
             }
             dotArray.push(dot)
+            //}
 
             break
           case 3:
@@ -516,10 +517,28 @@ const isWinner = () => {
       return
     }
   }
-  console.log('here')
-  document.querySelector('.instructions').innerHTML = 'W I N N E R!'
+
+  document.querySelector('.instructions').style.width = '169px'
+  document.querySelector('.instructions').innerHTML = 'W I N N E R !'
   winner = true
-  document.querySelector('.pac-man').remove()
+  pacman.style.backgroundImage = 'none'
+  waitASec()
+}
+
+const waitASec = () => {
+  timeout = setTimeout(playAgain, 3000)
+}
+
+const playAgain = () => {
+  let start = document.createElement('button')
+  start.className = 'start'
+  start.id = 'again'
+  start.style.top = '240px'
+  start.innerHTML = 'Play Again?'
+  document.querySelector('.page').append(start)
+  document.querySelector('#again').addEventListener('click', () => {
+    again()
+  })
 }
 
 //Display dots in dotArray
@@ -732,7 +751,9 @@ const movePacmanDown = () => {
   pacman.style.top = moveDown
 
   //Make him move!
-  timer = setTimeout(movePacmanDown, 10)
+  if (winner === false) {
+    timer = setTimeout(movePacmanDown, 10)
+  }
 }
 
 const movePacmanUp = () => {
@@ -756,7 +777,9 @@ const movePacmanUp = () => {
   pacman.style.top = moveUp
 
   //Make him move!
-  timer = setTimeout(movePacmanUp, 10)
+  if (winner === false) {
+    timer = setTimeout(movePacmanUp, 10)
+  }
 }
 const movePacmanLeft = () => {
   direction = 'left'
@@ -779,7 +802,9 @@ const movePacmanLeft = () => {
   pacman.style.left = moveLeft
 
   //Make him move!
-  timer = setTimeout(movePacmanLeft, 10)
+  if (winner === false) {
+    timer = setTimeout(movePacmanLeft, 10)
+  }
 }
 
 const movePacmanRight = () => {
@@ -803,7 +828,9 @@ const movePacmanRight = () => {
   pacman.style.left = moveRight
 
   //Make him move!
-  timer = setTimeout(movePacmanRight, 10)
+  if (winner === false) {
+    timer = setTimeout(movePacmanRight, 10)
+  }
 }
 
 const startGame = () => {
@@ -812,9 +839,40 @@ const startGame = () => {
   document.querySelector('.game-board').prepend(pacman)
   let allGameSquares = document.querySelectorAll('.game-board div')
   fillStartingBoard(allGameSquares)
-  console.log('board is filled')
   pacmanEats()
   movePacmanRight()
+}
+
+const again = () => {
+  winner = false
+  document.querySelector('.start').remove()
+  document.querySelector('.instructions').innerHTML = ''
+
+  //reset Pac-man
+  pacman.style.backgroundImage = 'url("Pac-Man - Small - Transparent..png")'
+  pacman.style.top = '368px'
+  pacman.style.left = '208px'
+  moveUp = '368px'
+  moveDown = '368px'
+  moveRight = '208px'
+  moveLeft = '208px'
+  timer = 0
+  direction = ''
+  pixel = 0
+  moveWhere = ''
+  moveOpposite = ''
+  bool = false
+  movePacmanRight()
+
+  //reset dots
+  let allGameSquares = document.querySelectorAll('.game-board div')
+  let positionInGameBoard = 0
+  for (let i = 0; i < dotArray.length; i++) {
+    dotArray[i].eaten = false
+    positionInGameBoard = dotArray[i].row * 28 + dotArray[i].column
+    allGameSquares[positionInGameBoard].style.backgroundPositionX = '-16px'
+    allGameSquares[positionInGameBoard].style.backgroundPositionY = '48px'
+  }
 }
 //startGame()
 /*

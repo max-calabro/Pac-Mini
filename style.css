@@ -166,8 +166,9 @@ h2 {
   align-items: center;
   justify-content: center;
 
-  font-family: PAC-FONT;
+  font-family: PIXEL;
   color: #fdff00;
+  text-decoration: none;
 
   height: 35px;
   width: 110px;
@@ -200,7 +201,7 @@ h2 {
 
   font-size: small;
   position: absolute;
-  top: 342px;
+  top: 344px;
   left: 0px;
   right: 0px;
   margin: 0 auto;
