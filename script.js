@@ -2,7 +2,7 @@
  *
  * Glabal constants and variables
  */
-//Game board, what on it. Walls are 1, dots are 2, empty squares are 0, power dots are 3, ghost entrnce is 4
+//Game board, what's on it. Walls are 1, dots are 2, empty squares are 0, power dots are 3, ghost entrnce is 4
 let gameBoard = [
   1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2,
@@ -44,18 +44,16 @@ let gameBoard = [
 let spriteSheetHeight = 496 //rows
 let spriteSheetWidth = 1360 //Columns
 
-//Pac-man gets slapped on the board
+//Pac-man is created
 const pacman = document.createElement('div')
 pacman.className = 'pac-man'
-
-//pacman.style.backgroundImage = 'url("Pac-Man - Transparent.png")'
 pacman.style.backgroundImage = 'url("Pac-Man - Small - Transparent..png")'
 
 //Gameboard sprite position
 let board = document.querySelector('.game-board')
 board.style.backgroundPositionX = '-456px'
 
-//Pac-mans lives
+//Pac-man's lives
 const lives = document.querySelectorAll('.lives')
 for (let i = 0; i < lives.length; i++) {
   lives[i].style.backgroundImage =
@@ -63,13 +61,6 @@ for (let i = 0; i < lives.length; i++) {
   lives[i].style.backgroundPositionX = '416px'
   lives[i].style.backgroundPositionY = '000px'
 }
-
-//Dot
-//const dot = document.createElement('div')
-
-//Dot starting position
-//dot.style.top = '160px'
-//dot.style.left = '210px'
 
 //Scoreboard
 let score = 0
@@ -83,6 +74,7 @@ let playerCoordinateX = 0
 //Big Pac-man
 //let spriteSheetX = '416px'
 //let spriteSheetY = '000px'
+//I'm leaving in big Pac-man because I eventually want him to appear big while being small
 //Small Pac-man
 let spriteSheetX = '208px'
 let spriteSheetY = '000px'
@@ -110,8 +102,7 @@ let moveOpposite = ''
 pacman.style.top = '368px'
 pacman.style.left = '208px'
 
-//Array of dots
-//let dotArray = []
+//setting these up for later
 let pacmanLOrT = pacman.style.top
 let pacmanTOrL = pacman.style.left
 let addOrSub = -16
@@ -119,26 +110,23 @@ let addOrSub = -16
 let walls = false
 let dots = false
 
-//let allGameSquares = document.querySelectorAll('.game-board div')
-
-//All the dots
+//All the dots will go in here as objects
 let dotArray = []
-//Basic dot object
-const dotObject = {
+//Basic dot object looks like this
+/*const dotObject = {
   eaten: false,
   row: 0,
   column: 0
-}
+}*/
+
 //Arrays containing the walls that can be hit from a given direction
-//const upWalls = [rowFour]
 let upWalls = [[], [], [], [], [], [], [], []]
 let downWalls = [[], [], [], [], [], [], [], [], []]
 let rightWalls = [[], [], [], [], [], [], [], [], []]
 let leftWalls = [[], [], [], [], [], [], [], [], []]
 let index = 0
+//bool should be called wall
 let bool = false
-//Maybe also have empty's in a  arrray
-//and dots
 
 let winner = false
 /*
@@ -154,7 +142,6 @@ const fillStartingBoard = (allGameSquares) => {
   for (let i = 0; i < 31; i++) {
     for (let j = 0; j < 28; j++) {
       if (i === 0 && j === 0) {
-        //console.log(`this is pmans square! i is ${i} and j is ${j}`)
       } else {
         let positionInGameBoard = i * 28 + j
         giveRowAndColumn(i, j, positionInGameBoard, allGameSquares)
@@ -346,52 +333,8 @@ const fillStartingBoard = (allGameSquares) => {
   }
 }
 
-//console.log(dotArray)
-/*console.log(upWalls)
-console.log(downWalls)
-console.log(rightWalls)
-console.log(leftWalls)*/
-/*
-Left walls by their column: rows
-2: 24, 25
-5: 2-4, 6, 7, 9-13, 15-19, 21-25
-8: 6-8, 11-13, 15-19, 24-26
-11: 2-4, 9, 10, 22, 23, 27, 28
-14: 1-4, 8-10, 20-22, 26-28
-17: 6, 7, 12-16, 18, 19, 24, 25
-20: 2-4, 6-13, 15-19, 21, 22, 24-26
-23: 23-25
-25: 2-4, 6, 7, 21, 22, 27, 28
-Right walls by their column: rows
-2: 2-4, 6, 7, 21, 22, 27, 28
-4: 23-25
-7: 2-4, 6-13, 15-19, 21, 22, 24-26
-10: 6, 7, 12-16, 18, 19, 24, 25
-13: 1-4, 8-10, 20-22, 26-28
-16: 2-4, 9, 10, 22, 23, 27, 28
-19: 6-8, 11-13, 15-19, 24-26
-22: 2-4, 6, 7, 9-13, 15-19, 21-25
-25: 24, 25
-*/
-
-//let nonoZone = allGameSquares[16 * 28 + 13]
-//let rowOrColumn = nonoZone.dataset.row
-//let columnOrRow = nonoZone.dataset.column
-
 const detectWalls = (keyPressed) => {
-  //for (let i = 0; i < 31; i++) {}
-  //for (let j = 0; j < 28; j++) {}
-  //check if the next pixels in pacmans (current direction/16 +1) are equal to any of the rows or columns of any div
-  //if true then check what the class is
-
-  //console.log(`pmans top ${pacman.style.top} and his left ${pacman.style.left}`)
-  //target row=16 (256px) column=13 (208px)
-  //let nonoZone = allGameSquares[16 * 28 + 13]
-  //translate row(top) and column(left) numbers to pixels (multiply by 16)
-  //console.log(nonoZone.dataset.row * 16)
-  //console.log(nonoZone.dataset.column * 16)
   //pacmanLOrT and pacmanTOrL are each either left or top of pacman
-  //rowOrColumn and columnOrRow are each either row or column of square ahead of pacman
   //addOrSub is either -16 or +16
   if (
     keyPressed === 'd' ||
@@ -400,14 +343,11 @@ const detectWalls = (keyPressed) => {
   ) {
     addOrSub = 16
     pacmanLOrT = pacman.style.left
-    //columnOrRow = nonoZone.dataset.column
     pacmanTOrL = pacman.style.top
-    //rowOrColumn = nonoZone.dataset.row
 
     isThatADot()
     isThatAWall(rightWalls, addOrSub, pacmanLOrT, pacmanTOrL)
     return
-    //console.log(direction)
   } else if (
     keyPressed === 'a' ||
     keyPressed === 'ArrowLeft' ||
@@ -415,14 +355,11 @@ const detectWalls = (keyPressed) => {
   ) {
     addOrSub = -16
     pacmanLOrT = pacman.style.left
-    //columnOrRow = nonoZone.dataset.column
     pacmanTOrL = pacman.style.top
-    //rowOrColumn = nonoZone.dataset.row
 
     isThatADot()
     isThatAWall(leftWalls, addOrSub, pacmanLOrT, pacmanTOrL)
     return
-    //console.log(direction)
   } else if (
     keyPressed === 's' ||
     keyPressed === 'ArrowDown' ||
@@ -430,14 +367,11 @@ const detectWalls = (keyPressed) => {
   ) {
     addOrSub = 16
     pacmanLOrT = pacman.style.top
-    //columnOrRow = nonoZone.dataset.row
     pacmanTOrL = pacman.style.left
-    //rowOrColumn = nonoZone.dataset.column
 
     isThatADot()
     isThatAWall(downWalls, addOrSub, pacmanLOrT, pacmanTOrL)
     return
-    //console.log(direction)
   } else if (
     keyPressed === 'w' ||
     keyPressed === 'ArrowUp' ||
@@ -445,29 +379,13 @@ const detectWalls = (keyPressed) => {
   ) {
     addOrSub = -16
     pacmanLOrT = pacman.style.top
-
-    //columnOrRow = nonoZone.dataset.row
     pacmanTOrL = pacman.style.left
-    //rowOrColumn = nonoZone.dataset.column
 
     isThatADot()
     isThatAWall(upWalls, addOrSub, pacmanLOrT, pacmanTOrL)
     return
-    //console.log(direction)
   } else {
     console.log('panic')
-  }
-
-  if (
-    parseInt(pacmanLOrT.slice(0, 3)) + addOrSub ===
-      parseInt(columnOrRow.slice(0, 3)) * 16 &&
-    parseInt(pacmanTOrL.slice(0, 3)) >
-      parseInt(rowOrColumn.slice(0, 3)) * 16 - 15 &&
-    parseInt(pacmanTOrL.slice(0, 3)) <
-      parseInt(rowOrColumn.slice(0, 3)) * 16 + 15
-  ) {
-    bool = true
-    return
   }
 
   bool = false
@@ -479,8 +397,8 @@ const isThatAWall = (wallArray, addOrSub, pacmanLOrT, pacmanTOrL) => {
     if (wallArray[i][0] * 16 === parseInt(pacmanLOrT.slice(0, 3)) + addOrSub) {
       for (let j = 0; j < wallArray[i].length; j++) {
         if (
-          parseInt(pacmanTOrL.slice(0, 3)) > wallArray[i][j] * 16 - 15 &&
-          parseInt(pacmanTOrL.slice(0, 3)) < wallArray[i][j] * 16 + 15
+          parseInt(pacmanTOrL.slice(0, 3)) > wallArray[i][j] * 16 - 16 &&
+          parseInt(pacmanTOrL.slice(0, 3)) < wallArray[i][j] * 16 + 16
         ) {
           bool = true
         }
@@ -621,64 +539,6 @@ const pacmanEats = () => {
     }
   }
   timerEat = setTimeout(pacmanEats, 100)
-}
-
-//Check for dots in the direction Pac-man is facing
-const checkForDots = (facing) => {
-  if (facing === 'up') {
-    for (let i = 0; i < dotArray.length; i++) {
-      if (
-        parseInt(pacman.style.top.slice(0, 3)) - 35 ===
-          dotArray[i].topPosition &&
-        parseInt(pacman.style.left.slice(0, 3)) >=
-          dotArray[i].leftPosition - 29 &&
-        parseInt(pacman.style.left.slice(0, 3)) <= dotArray[i].leftPosition + 3
-      ) {
-        removeDot(dotArray[i].id)
-      }
-    }
-  } else if (facing === 'down') {
-    for (let i = 0; i < dotArray.length; i++) {
-      if (
-        parseInt(pacman.style.top.slice(0, 3)) + 1 ===
-          dotArray[i].topPosition &&
-        parseInt(pacman.style.left.slice(0, 3)) >=
-          dotArray[i].leftPosition - 29 &&
-        parseInt(pacman.style.left.slice(0, 3)) <= dotArray[i].leftPosition + 3
-      ) {
-        removeDot(dotArray[i].id)
-      }
-    }
-  } else if (facing === 'left') {
-    for (let i = 0; i < dotArray.length; i++) {
-      if (
-        parseInt(pacman.style.left.slice(0, 3)) - 3 ===
-          dotArray[i].leftPosition &&
-        parseInt(pacman.style.top.slice(0, 3)) >= dotArray[i].topPosition &&
-        parseInt(pacman.style.top.slice(0, 3)) <= dotArray[i].topPosition + 33
-      ) {
-        removeDot(dotArray[i].id)
-      }
-    }
-  } else if (facing === 'right') {
-    for (let i = 0; i < dotArray.length; i++) {
-      if (
-        parseInt(pacman.style.left.slice(0, 3)) + 29 ===
-          dotArray[i].leftPosition &&
-        parseInt(pacman.style.top.slice(0, 3)) >= dotArray[i].topPosition &&
-        parseInt(pacman.style.top.slice(0, 3)) <= dotArray[i].topPosition + 33
-      ) {
-        removeDot(dotArray[i].id)
-      }
-    }
-  }
-}
-
-//Remove a dot when Pac-man touches it and add to the score
-const removeDot = (id) => {
-  document.querySelector(`#${id}`).remove()
-  score += 100
-  document.querySelector('.scoreboard').innerHTML = score
 }
 
 const pacmanChangeDirection = (keyPressed) => {
@@ -846,6 +706,7 @@ const startGame = () => {
 
 const again = () => {
   winner = false
+  score = 0
   document.querySelector('.start').remove()
   document.querySelector('.instructions').innerHTML = ''
 
@@ -888,6 +749,7 @@ document.addEventListener('keydown', (keyPressed) => {
   //pacmanChangeDirection(keyPressed)
 })
 
+//start the game on click
 document.querySelector('.start').addEventListener('click', () => {
   startGame()
 })

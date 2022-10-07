@@ -232,7 +232,7 @@ h2 {
 }
 
 .wall {
-  /*background-color: lime;*/
+  /*background-color: lime;*/ /*helpful for bug fixing*/
 }
 
 .dots {
