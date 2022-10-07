@@ -141,7 +141,7 @@ let bool = false
 //Maybe also have empty's in a  arrray
 //and dots
 
-console
+let winner = false
 /*
  *
  * Functions
@@ -504,35 +504,23 @@ const isThatADot = () => {
         let positionInGameBoard = dotArray[i].row * 28 + dotArray[i].column
         allGameSquares[positionInGameBoard].style.backgroundPositionX = '-600px'
         allGameSquares[positionInGameBoard].style.backgroundPositionY = '200px'
+        isWinner()
       }
     }
   }
 }
 
-//Detect walls moving down
-/*parseInt(pacman.style.top.slice(0, 3)) + 16 === nonoZone.dataset.row * 16 &&
-    parseInt(pacman.style.left.slice(0, 3)) >
-      nonoZone.dataset.column * 16 - 15 &&
-    parseInt(pacman.style.left.slice(0, 3)) < nonoZone.dataset.column * 16 + 15*/
-
-//Detect walls moving up
-/*parseInt(pacman.style.top.slice(0, 3)) - 16 === nonoZone.dataset.row * 16 &&
-    parseInt(pacman.style.left.slice(0, 3)) >
-      nonoZone.dataset.column * 16 - 15 &&
-    parseInt(pacman.style.left.slice(0, 3)) < nonoZone.dataset.column * 16 + 15*/
-
-//done
-//Detect right
-/*parseInt(pacman.style.left.slice(0, 3)) + 16 ===
-      nonoZone.dataset.column * 16 &&
-    parseInt(pacman.style.top.slice(0, 3)) > nonoZone.dataset.row * 16 - 15 &&
-    parseInt(pacman.style.top.slice(0, 3)) < nonoZone.dataset.row * 16 + 15*/
-
-//Detect walls moving left
-/*parseInt(pacman.style.left.slice(0, 3)) - 16 ===
-      nonoZone.dataset.column * 16 &&
-    parseInt(pacman.style.top.slice(0, 3)) > nonoZone.dataset.row * 16 - 15 &&
-    parseInt(pacman.style.top.slice(0, 3)) < nonoZone.dataset.row * 16 + 15*/
+const isWinner = () => {
+  for (let i = 0; i < dotArray.length; i++) {
+    if (dotArray[i].eaten === false) {
+      return
+    }
+  }
+  console.log('here')
+  document.querySelector('.instructions').innerHTML = 'W I N N E R!'
+  winner = true
+  document.querySelector('.pac-man').remove()
+}
 
 //Display dots in dotArray
 const displayDots = () => {
@@ -820,7 +808,7 @@ const movePacmanRight = () => {
 
 const startGame = () => {
   document.querySelector('.start').remove()
-  document.querySelector('.instructions').remove()
+  document.querySelector('.instructions').innerHTML = ''
   document.querySelector('.game-board').prepend(pacman)
   let allGameSquares = document.querySelectorAll('.game-board div')
   fillStartingBoard(allGameSquares)
@@ -836,7 +824,9 @@ const startGame = () => {
 
 //Where he going?
 document.addEventListener('keydown', (keyPressed) => {
-  pacmanChangeDirection(keyPressed)
+  if (winner === false) {
+    pacmanChangeDirection(keyPressed)
+  }
   //pacmanChangeDirection(keyPressed)
 })
 
