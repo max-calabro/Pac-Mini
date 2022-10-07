@@ -97,6 +97,8 @@ let direction = ''
 let pixel = 0
 let moveWhere = ''
 let moveOpposite = ''
+let moveSpeed = 10
+let eatSpeed = 100
 
 //Start Pac-man in the center
 pacman.style.top = '368px'
@@ -538,7 +540,7 @@ const pacmanEats = () => {
       whatPacmanFrame = 3
     }
   }
-  timerEat = setTimeout(pacmanEats, 100)
+  timerEat = setTimeout(pacmanEats, eatSpeed)
 }
 
 const pacmanChangeDirection = (keyPressed) => {
@@ -613,7 +615,7 @@ const movePacmanDown = () => {
 
   //Make him move!
   if (winner === false) {
-    timer = setTimeout(movePacmanDown, 10)
+    timer = setTimeout(movePacmanDown, moveSpeed)
   }
 }
 
@@ -639,7 +641,7 @@ const movePacmanUp = () => {
 
   //Make him move!
   if (winner === false) {
-    timer = setTimeout(movePacmanUp, 10)
+    timer = setTimeout(movePacmanUp, moveSpeed)
   }
 }
 const movePacmanLeft = () => {
@@ -664,7 +666,7 @@ const movePacmanLeft = () => {
 
   //Make him move!
   if (winner === false) {
-    timer = setTimeout(movePacmanLeft, 10)
+    timer = setTimeout(movePacmanLeft, moveSpeed)
   }
 }
 
@@ -690,7 +692,7 @@ const movePacmanRight = () => {
 
   //Make him move!
   if (winner === false) {
-    timer = setTimeout(movePacmanRight, 10)
+    timer = setTimeout(movePacmanRight, moveSpeed)
   }
 }
 
@@ -700,8 +702,13 @@ const startGame = () => {
   document.querySelector('.game-board').prepend(pacman)
   let allGameSquares = document.querySelectorAll('.game-board div')
   fillStartingBoard(allGameSquares)
+  //readyGo()
   pacmanEats()
   movePacmanRight()
+}
+
+const readyGo = () => {
+  pause = setTimeout()
 }
 
 const again = () => {
