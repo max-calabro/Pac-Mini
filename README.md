@@ -46,10 +46,8 @@ This project is deployed on surge and can be played [here.](https://max-pac-mini
 
 ## **_Future Updates_**
 
-- Ghosts
-- Power Dots and Fruit
-- Sounds
-- More levels
+- Fix invisible walls bug
+- Make turning more forgiving (currently pixel perfect inputs required)
 
 ---
 
