@@ -13,7 +13,7 @@ let gameBoard = [
   2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1,
   1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1,
   1, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 2,
-  2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1,
+  2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 3, 2, 2, 1, 1, 1, 1, 1, 1, 1, 2, 1,
   1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   2, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
   1, 1, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1,
@@ -305,6 +305,10 @@ const fillStartingBoard = (allGameSquares) => {
             break
           case 2:
             allGameSquares[positionInGameBoard].className = 'dot'
+
+            //This line is great for testing and bug fixing so I'm leaving it in
+            //if (i === 23 && j === 19) {
+
             allGameSquares[positionInGameBoard].style.backgroundImage =
               'url("Arcade - Pac-Man - General Sprites.png")'
             allGameSquares[positionInGameBoard].style.backgroundPositionX =
@@ -313,7 +317,6 @@ const fillStartingBoard = (allGameSquares) => {
               '48px'
 
             //adding dots to dotArray
-            //if (i === 23 && j === 19) { //This line is great for testing and bug fixing so I'm leaving it in
             let dot = {
               eaten: false,
               row: i,

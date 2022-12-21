@@ -4,7 +4,7 @@
 
 ### By: Max Calabro
 
-[GitHub](https://github.com/max-calabro)
+[GitHub](https://github.com/max-calabro) | [Live Game](https://max-pac-mini.surge.sh/index.html)
 
 ---
 
